@@ -4,7 +4,7 @@
 - **Name**: dggs
 - **Schema**: "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v0.1.0/schema.json"
 - **Extension Maturity Classification**: Proposal
-- **Owner**: @your-github-handle, @another-github-handle
+- **Owner**: @keewis
 
 The document explains the Template convention, which is a Zarr convention metadata. This is the place to add a short introduction.
 
