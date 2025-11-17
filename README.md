@@ -1,8 +1,8 @@
 # Discrete Global Grid System Attribute Convention for Zarr
 
-- **UUID**: f010a634-3525-416e-9320-8f44b5bc352c
-- **Name**: Template
-- **Schema**: "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v0.1.0/schema.json"
+- **UUID**: 7b255807-140c-42ca-97f6-7a1cfecdbc38
+- **Name**: dggs
+- **Schema**: "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v0.1.0/schema.json"
 - **Extension Maturity Classification**: Proposal
 - **Owner**: @your-github-handle, @another-github-handle
 
