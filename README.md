@@ -1,4 +1,4 @@
-# Template Convention Metadata
+# Discrete Global Grid System Attribute Convention for Zarr
 
 - **UUID**: f010a634-3525-416e-9320-8f44b5bc352c
 - **Name**: Template
