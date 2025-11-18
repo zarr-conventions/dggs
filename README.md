@@ -10,6 +10,16 @@
 
 This convention describes a JSON object that encodes the coordinate and grid parameters of a discrete global grid system (DGGS) under the `dggs` key in the attributes of zarr groups and arrays.
 
+## Inheritance Model
+
+The `dggs` convention object follows a simple group-to-array inheritance model that should be understood first:
+
+### Inheritance Rules
+
+1. **Group-level definition** (recommended): When `geo-proj` convention is defined at the group level, it applies to all arrays that are direct children of that group. It does not apply to groups or arrays deeper in the hierarchy (e.g., grandchildren).
+2. **Array-level override**: An array can completely override the group's `geo-proj` convention with its own definition.
+3. **Partial replacement**: Partial inheritance (overriding only some fields while inheriting others) is allowed.
+
 ## Configuration
 
 The configuration in the Zarr convention metadata can be used in these parts of the Zarr hierarchy:
