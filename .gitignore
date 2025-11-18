@@ -10,3 +10,6 @@ Thumbs.db
 .npm
 /node_modules/
 package-lock.json
+
+# cache files
+.prettier_cache/
