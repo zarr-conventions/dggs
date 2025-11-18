@@ -17,9 +17,9 @@ The configuration in the Zarr convention metadata can be used in these parts of 
 - [x] Group
 - [x] Array
 
-|      | Type     | Description       | Required     | Reference     |
-| ---- | -------- | ----------------- | ------------ | ------------- |
-| dggs | `object` | The grid metadata | &#10003; Yes | [dggs](#dggs) |
+|          | Type     | Description       | Required     | Reference     |
+| -------- | -------- | ----------------- | ------------ | ------------- |
+| **dggs** | `object` | The grid metadata | &#10003; Yes | [dggs](#dggs) |
 
 ### Field Details
 
@@ -34,14 +34,14 @@ This field SHALL describe the concrete instance of the discrete global grid syst
 
 ### DGGS Object
 
-|                   | Type      | Description                                  | Required     | Reference                               |
-| ----------------- | --------- | -------------------------------------------- | ------------ | --------------------------------------- |
-| name              | `string`  | The lower-cased name of the DGGS.            | &#10003; Yes | [name](#name)                           |
-| refinement_level  | `integer` | The refinement level as an unsigned integer. | &#10003; Yes | [refinement_level](#refinement_level)   |
-| ellipsoid         | `object`  | The ellipsoid used as a reference body.      | &#10005; No  | [ellipsoid](#ellipsoid)                 |
-| spatial_dimension | `string`  | Name of the spatial dimension                | &#10003; Yes | [spatial_dimension](#spatial_dimension) |
-| coordinate        | `string`  | Name of the coordinate                       | &#10003; No  | [coordinate](#coordinate)               |
-| coordinate_type   | `string`  | Coordinate kind                              | &#10003; Yes | [coordinate_type](#coordinate_type)     |
+|                       | Type      | Description                                  | Required     | Reference                               |
+| --------------------- | --------- | -------------------------------------------- | ------------ | --------------------------------------- |
+| **name**              | `string`  | The lower-cased name of the DGGS.            | &#10003; Yes | [name](#name)                           |
+| **refinement_level**  | `integer` | The refinement level as an unsigned integer. | &#10003; Yes | [refinement_level](#refinement_level)   |
+| **ellipsoid**         | `object`  | The ellipsoid used as a reference body.      | &#10005; No  | [ellipsoid](#ellipsoid)                 |
+| **spatial_dimension** | `string`  | Name of the spatial dimension                | &#10003; Yes | [spatial_dimension](#spatial_dimension) |
+| **coordinate**        | `string`  | Name of the coordinate                       | &#10003; No  | [coordinate](#coordinate)               |
+| **coordinate_type**   | `string`  | Coordinate kind                              | &#10003; Yes | [coordinate_type](#coordinate_type)     |
 
 Additional DGGS-specific parameters are allowed.
 
@@ -101,12 +101,12 @@ The following values are possible:
 
 ### Ellipsoid object
 
-|                    | Type     | Description                             | Required    |
-| ------------------ | -------- | --------------------------------------- | ----------- |
-| name               | `string` | Human-readable name of the ellipsoid    | Conditional |
-| semimajor_axis     | `number` | The semimajor axis of the ellipsoid     | Yes         |
-| semiminor_axis     | `number` | The semiminor axis of the ellipsoid     | Conditional |
-| inverse_flattening | `number` | The inverse flattening of the ellipsoid | Conditional |
+|                        | Type     | Description                             | Required    |
+| ---------------------- | -------- | --------------------------------------- | ----------- |
+| **name**               | `string` | Human-readable name of the ellipsoid    | No          |
+| **semimajor_axis**     | `number` | The semimajor axis of the ellipsoid     | Yes         |
+| **semiminor_axis**     | `number` | The semiminor axis of the ellipsoid     | Conditional |
+| **inverse_flattening** | `number` | The inverse flattening of the ellipsoid | Conditional |
 
 `semiminor_axis` and `inverse_flattening` are mutually exclusive. If none of them are given, a sphere SHALL be assumed. `name` SHOULD be provided if it exists.
 
