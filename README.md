@@ -6,10 +6,9 @@
 - **Extension Maturity Classification**: Proposal
 - **Owner**: @keewis
 
-The document explains the Template convention, which is a Zarr convention metadata. This is the place to add a short introduction.
+## Description
 
-- Examples:
-    - [Zarr metadata conventions example](examples/zarr_convention_metadata.json)
+This convention describes a JSON object that encodes the coordinate and grid parameters of a discrete global grid system (DGGS) under the `dggs` key in the attributes of zarr groups and arrays.
 
 ## Configuration
 
