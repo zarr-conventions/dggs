@@ -9,7 +9,7 @@
 The document explains the Template convention, which is a Zarr convention metadata. This is the place to add a short introduction.
 
 - Examples:
-    - [Zarr metadata conventions example](examples/zarr_convention_metadata.json)
+  - [Zarr metadata conventions example](examples/zarr_convention_metadata.json)
 
 ## Configuration
 
@@ -18,8 +18,8 @@ The configuration in the Zarr convention metadata can be used in these parts of 
 - [x] Group
 - [x] Array
 
-| Field Name           | Type                      | Description                                  |
-| -------------------- | ------------------------- | -------------------------------------------- |
+| Field Name  | Type                      | Description                                  |
+| ----------- | ------------------------- | -------------------------------------------- |
 | new_field   | string                    | **REQUIRED**. Describe the required field... |
 | xyz         | [XYZ Object](#xyz-object) | Describe the field...                        |
 | another_one | \[number]                 | Describe the field...                        |
