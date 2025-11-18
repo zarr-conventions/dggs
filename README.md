@@ -16,9 +16,9 @@ The `dggs` convention object follows a simple group-to-array inheritance model t
 
 ### Inheritance Rules
 
-1. **Group-level definition** (recommended): When `geo-proj` convention is defined at the group level, it applies to all arrays that are direct children of that group. It does not apply to groups or arrays deeper in the hierarchy (e.g., grandchildren).
-2. **Array-level override**: An array can completely override the group's `geo-proj` convention with its own definition.
-3. **Partial replacement**: Partial inheritance (overriding only some fields while inheriting others) is allowed.
+1. **Group-level definition** (recommended): When the `dggs` convention is defined at the group level, it applies to all arrays that are direct children of that group. It does not apply to groups or arrays deeper in the hierarchy (e.g., grandchildren).
+2. **Array-level override**: An array can completely override the group's `dggs` convention with its own definition.
+3. **Partial replacement**: Partial inheritance (overriding only some fields while inheriting others) is not allowed.
 
 ## Configuration
 
