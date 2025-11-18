@@ -120,6 +120,67 @@ The following values are possible:
 
 `semiminor_axis` and `inverse_flattening` are mutually exclusive. If none of them are given, a sphere SHALL be assumed. `name` SHOULD be provided if it exists.
 
+## Examples
+
+### HEALPix
+
+Uncompressed subdomain:
+
+```json
+{
+  "attributes": {
+    "zarr_conventions_version": "0.1.0",
+    "zarr_conventions": {
+      "7b255807-140c-42ca-97f6-7a1cfecdbc38": {
+        "version": "0.1.0",
+        "schema": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v0.1.0/schema.json",
+        "name": "dggs",
+        "description": "Discrete Global Grid Systems convention for zarr",
+        "spec": "https://github.com/zarr-conventions/dggs/blob/v0.1.0/README.md"
+      }
+    },
+    "dggs": {
+      "name": "healpix",
+      "refinement_level": 10,
+      "indexing_scheme": "nested",
+      "spatial_dimension": "cells",
+      "ellipsoid": {
+        "name": "wgs84",
+        "semimajor_axis": 6378137.0,
+        "inverse_flattening": 298.257223563
+      },
+      "coordinate": "cell_ids",
+      "compression": "none"
+    }
+  }
+}
+```
+
+Full domain, spherical, missing coordinate:
+
+```json
+{
+  "attributes": {
+    "zarr_conventions_version": "0.1.0",
+    "zarr_conventions": {
+      "7b255807-140c-42ca-97f6-7a1cfecdbc38": {
+        "version": "0.1.0",
+        "schema": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v0.1.0/schema.json",
+        "name": "dggs",
+        "description": "Discrete Global Grid Systems convention for zarr",
+        "spec": "https://github.com/zarr-conventions/dggs/blob/v0.1.0/README.md"
+      }
+    },
+    "dggs": {
+      "name": "healpix",
+      "refinement_level": 16,
+      "indexing_scheme": "nested",
+      "spatial_dimension": "cells"
+    }
+  }
+}
+```
+
 ## Acknowledgements
 
 This template is based on the [STAC extensions template](https://github.com/stac-extensions/template/blob/main/README.md).
