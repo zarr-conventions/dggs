@@ -73,7 +73,14 @@
           "additionalProperties": false
         }
       },
-      "required": ["version", "schema", "name", "description", "spec", "configuration"],
+      "required": [
+        "version",
+        "schema",
+        "name",
+        "description",
+        "spec",
+        "configuration"
+      ],
       "additionalProperties": false
     }
   },
