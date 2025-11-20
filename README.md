@@ -1,15 +1,24 @@
-# Template Convention Metadata
+# Discrete Global Grid System Attribute Convention for Zarr
 
-- **UUID**: f010a634-3525-416e-9320-8f44b5bc352c
-- **Name**: Template
-- **Schema**: "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v0.1.0/schema.json"
+- **UUID**: 7b255807-140c-42ca-97f6-7a1cfecdbc38
+- **Name**: dggs
+- **Schema**: "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v0.1.0/schema.json"
 - **Extension Maturity Classification**: Proposal
-- **Owner**: @your-github-handle, @another-github-handle
+- **Owner**: @keewis
 
-The document explains the Template convention, which is a Zarr convention metadata. This is the place to add a short introduction.
+## Description
 
-- Examples:
-  - [Zarr metadata conventions example](examples/zarr_convention_metadata.json)
+This convention describes a JSON object that encodes the coordinate and grid parameters of a discrete global grid system (DGGS) under the `dggs` key in the attributes of zarr groups and arrays.
+
+## Inheritance Model
+
+The `dggs` convention object follows a simple group-to-array inheritance model that should be understood first:
+
+### Inheritance Rules
+
+1. **Group-level definition** (recommended): When the `dggs` convention is defined at the group level, it applies to all arrays that are direct children of that group. It does not apply to groups or arrays deeper in the hierarchy (e.g., grandchildren).
+2. **Array-level override**: An array can completely override the group's `dggs` convention with its own definition.
+3. **Partial replacement**: Partial inheritance (overriding only some fields while inheriting others) is not allowed.
 
 ## Configuration
 
@@ -18,27 +27,159 @@ The configuration in the Zarr convention metadata can be used in these parts of 
 - [x] Group
 - [x] Array
 
-| Field Name  | Type                      | Description                                  |
-| ----------- | ------------------------- | -------------------------------------------- |
-| new_field   | string                    | **REQUIRED**. Describe the required field... |
-| xyz         | [XYZ Object](#xyz-object) | Describe the field...                        |
-| another_one | \[number]                 | Describe the field...                        |
+|          | Type     | Description       | Required     | Reference     |
+| -------- | -------- | ----------------- | ------------ | ------------- |
+| **dggs** | `object` | The grid metadata | &#10003; Yes | [dggs](#dggs) |
 
-### Additional Field Information
+### Field Details
 
-#### new_field
+#### dggs
 
-This is a much more detailed description of the field `new_field`...
+Object representing the conrete instance of the discrete global grid system.
 
-### XYZ Object
+- **Type**: `object`
+- **Required**: &#10003; Yes
 
-This is the introduction for the purpose and the content of the XYZ Object...
+This field SHALL describe the concrete instance of the discrete global grid system. See the [DGGS Object](#dggs-object) section below for details.
 
-| Field Name | Type   | Description                                  |
-| ---------- | ------ | -------------------------------------------- |
-| x          | number | **REQUIRED**. Describe the required field... |
-| y          | number | **REQUIRED**. Describe the required field... |
-| z          | number | **REQUIRED**. Describe the required field... |
+### DGGS Object
+
+|                       | Type      | Description                                  | Required     | Reference                               |
+| --------------------- | --------- | -------------------------------------------- | ------------ | --------------------------------------- |
+| **name**              | `string`  | The lower-cased name of the DGGS.            | &#10003; Yes | [name](#name)                           |
+| **refinement_level**  | `integer` | The refinement level as an unsigned integer. | &#10003; Yes | [refinement_level](#refinement_level)   |
+| **ellipsoid**         | `object`  | The ellipsoid used as a reference body.      | &#10005; No  | [ellipsoid](#ellipsoid)                 |
+| **spatial_dimension** | `string`  | Name of the spatial dimension                | &#10003; Yes | [spatial_dimension](#spatial_dimension) |
+| **coordinate**        | `string`  | Name of the coordinate                       | &#10003; No  | [coordinate](#coordinate)               |
+| **compression**       | `string`  | Compression type of the coordinate           | &#10003; Yes | [compression](#compression)             |
+
+Additional DGGS-specific parameters are allowed.
+
+#### name
+
+The canonical name of the DGGS, normalized to a lower-cased string.
+
+- **Type**: `string`
+- **Required**: &#10003; Yes
+
+#### refinement_level
+
+Also called the "depth" or "order", this parameter describes the size of the DGGS cells.
+
+- **Type**: `integer | null`
+- **Required**: &#10003; Yes
+
+It MUST only be `null` if the associated coordinate is variable-sized.
+
+#### ellipsoid
+
+The ellipsoid describes the reference system of the DGGS. See the [ellipsoid object](ellipsoid-object) for more information.
+
+- **Type**: `object`
+- **Required**: &#10005; No
+
+If not given, a sphere with a radius of `6370997 m` SHALL be assumed.
+
+#### spatial_dimension
+
+The name of spatial dimension.
+
+- **Type**: `string`
+- **Required**: &#10003; Yes
+
+#### coordinate
+
+`coordinate` points to the array containing the cell ids. If not provided, the entire domain must be covered and the `refinement_level` MUST NOT be `null`.
+
+- **Type**: `string`
+- **Required**: &#10005; No
+
+#### compression
+
+`compression` describes the cell id compression method chosen. It SHALL only be provided if the `coordinate` was provided. If `refinement_level` is `null`, `compression` SHALL be `"none"`.
+
+Uncompressing the cell ids SHALL result in an array of the same length as the `spatial_dimension`.
+
+- **Type**: `string`
+- **Required**: &#10005; No
+
+The following values are possible:
+
+- `"none"`: the array referenced by `coordinate` MUST be 1-dimensional and have the same size as the `spatial_dimension`.
+- `"compacted"`: the array referenced by `coordinate` MUST be 1-dimensional.
+- `"ranges"`: the array referenced by `coordinate` MUST have a shape of `(n_ranges, 2)` that describes the contiguous ranges covered.
+
+### Ellipsoid object
+
+|                        | Type     | Description                             | Required    |
+| ---------------------- | -------- | --------------------------------------- | ----------- |
+| **name**               | `string` | Human-readable name of the ellipsoid    | No          |
+| **semimajor_axis**     | `number` | The semimajor axis of the ellipsoid     | Yes         |
+| **semiminor_axis**     | `number` | The semiminor axis of the ellipsoid     | Conditional |
+| **inverse_flattening** | `number` | The inverse flattening of the ellipsoid | Conditional |
+
+`semiminor_axis` and `inverse_flattening` are mutually exclusive. If none of them are given, a sphere SHALL be assumed. `name` SHOULD be provided if it exists.
+
+## Examples
+
+### HEALPix
+
+Uncompressed subdomain:
+
+```json
+{
+  "attributes": {
+    "zarr_conventions_version": "0.1.0",
+    "zarr_conventions": {
+      "7b255807-140c-42ca-97f6-7a1cfecdbc38": {
+        "version": "0.1.0",
+        "schema": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v0.1.0/schema.json",
+        "name": "dggs",
+        "description": "Discrete Global Grid Systems convention for zarr",
+        "spec": "https://github.com/zarr-conventions/dggs/blob/v0.1.0/README.md"
+      }
+    },
+    "dggs": {
+      "name": "healpix",
+      "refinement_level": 10,
+      "indexing_scheme": "nested",
+      "spatial_dimension": "cells",
+      "ellipsoid": {
+        "name": "wgs84",
+        "semimajor_axis": 6378137.0,
+        "inverse_flattening": 298.257223563
+      },
+      "coordinate": "cell_ids",
+      "compression": "none"
+    }
+  }
+}
+```
+
+Full domain, spherical, missing coordinate:
+
+```json
+{
+  "attributes": {
+    "zarr_conventions_version": "0.1.0",
+    "zarr_conventions": {
+      "7b255807-140c-42ca-97f6-7a1cfecdbc38": {
+        "version": "0.1.0",
+        "schema": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v0.1.0/schema.json",
+        "name": "dggs",
+        "description": "Discrete Global Grid Systems convention for zarr",
+        "spec": "https://github.com/zarr-conventions/dggs/blob/v0.1.0/README.md"
+      }
+    },
+    "dggs": {
+      "name": "healpix",
+      "refinement_level": 16,
+      "indexing_scheme": "nested",
+      "spatial_dimension": "cells"
+    }
+  }
+}
+```
 
 ## Acknowledgements
 
