@@ -1,89 +1,169 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Template Convention Metadata",
-  "description": "Schema for Template Zarr convention metadata with fixed UUID and exact values",
+  "$id": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json",
+  "title": "DGGS Convention",
+  "description": "Schema for Discrete Global Grid System convention using nested pattern",
   "type": "object",
   "properties": {
-    "f010a634-3525-416e-9320-8f44b5bc352c": {
+    "zarr_format": {
+      "type": "integer",
+      "description": "Zarr format version"
+    },
+    "node_type": {
+      "type": "string",
+      "enum": ["array", "group"],
+      "description": "Type of Zarr node"
+    },
+    "attributes": {
       "type": "object",
-      "description": "Template convention metadata",
+      "description": "Zarr attributes containing convention metadata and properties",
       "properties": {
-        "version": {
-          "type": "string",
-          "const": "0.1.0",
-          "description": "Semantic version number of the convention"
+        "zarr_conventions": {
+          "type": "array",
+          "description": "Array of convention metadata objects",
+          "contains": {
+            "$ref": "#/$defs/conventionMetadata"
+          }
         },
-        "schema": {
+        "dggs": {
+          "$ref": "#/$defs/dggsProperties"
+        }
+      },
+      "required": ["zarr_conventions", "dggs"],
+      "additionalProperties": true
+    }
+  },
+  "required": ["zarr_format", "node_type", "attributes"],
+  "additionalProperties": true,
+  "$defs": {
+    "conventionMetadata": {
+      "type": "object",
+      "description": "DGGS convention metadata object for use in zarr_conventions array",
+      "properties": {
+        "schema_url": {
           "type": "string",
-          "const": "https://raw.githubusercontent.com/zarr-conventions/template/refs/tags/v0.1.0/schema.json",
+          "const": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json",
           "description": "URL to the JSON Schema definition for this convention"
+        },
+        "spec_url": {
+          "type": "string",
+          "const": "https://github.com/zarr-conventions/dggs/blob/v1/README.md",
+          "description": "URL to the full specification document"
+        },
+        "uuid": {
+          "type": "string",
+          "const": "7b255807-140c-42ca-97f6-7a1cfecdbc38",
+          "description": "UUID that permanently identifies this convention"
         },
         "name": {
           "type": "string",
-          "const": "Template",
+          "const": "dggs",
           "description": "Human-readable name of the convention"
         },
         "description": {
           "type": "string",
-          "const": "Template convention for demonstrating Zarr convention metadata structure",
+          "const": "Discrete Global Grid Systems convention for zarr",
           "description": "Brief description of the convention's purpose and usage"
-        },
-        "spec": {
-          "type": "string",
-          "const": "https://github.com/zarr-conventions/template/blob/v0.1.0/README.md",
-          "description": "URL to the full specification document"
-        },
-        "configuration": {
-          "type": "object",
-          "description": "Convention-specific configuration parameters",
-          "properties": {
-            "new_field": {
-              "type": "string",
-              "description": "REQUIRED. Describe the required field..."
-            },
-            "xyz": {
-              "type": "object",
-              "description": "XYZ Object containing x, y, z coordinates",
-              "properties": {
-                "x": {
-                  "type": "number",
-                  "description": "REQUIRED. X coordinate value"
-                },
-                "y": {
-                  "type": "number",
-                  "description": "REQUIRED. Y coordinate value"
-                },
-                "z": {
-                  "type": "number",
-                  "description": "REQUIRED. Z coordinate value"
-                }
-              },
-              "required": ["x", "y", "z"],
-              "additionalProperties": false
-            },
-            "another_one": {
-              "type": "array",
-              "description": "Array of numeric values",
-              "items": {
-                "type": "number"
-              }
-            }
-          },
-          "required": ["new_field"],
-          "additionalProperties": false
         }
       },
-      "required": [
-        "version",
-        "schema",
-        "name",
-        "description",
-        "spec",
-        "configuration"
+      "anyOf": [
+        {
+          "required": ["schema_url"]
+        },
+        {
+          "required": ["spec_url"]
+        },
+        {
+          "required": ["uuid"]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "dggsProperties": {
+      "type": "object",
+      "description": "DGGS convention properties defining the grid system",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The canonical name of the DGGS, normalized to a lower-cased string"
+        },
+        "refinement_level": {
+          "type": ["integer", "null"],
+          "description": "The refinement level (depth/order) as an unsigned integer. Can be null if coordinate is variable-sized",
+          "minimum": 0
+        },
+        "ellipsoid": {
+          "$ref": "#/$defs/ellipsoidObject"
+        },
+        "spatial_dimension": {
+          "type": "string",
+          "description": "Name of the spatial dimension"
+        },
+        "coordinate": {
+          "type": "string",
+          "description": "Name of the coordinate array containing cell ids"
+        },
+        "compression": {
+          "type": "string",
+          "description": "Cell id compression method",
+          "enum": ["none", "compacted", "ranges"]
+        }
+      },
+      "required": ["name", "refinement_level", "spatial_dimension"],
+      "additionalProperties": true
+    },
+    "ellipsoidObject": {
+      "type": "object",
+      "description": "Ellipsoid reference body definition",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Human-readable name of the ellipsoid"
+        },
+        "semimajor_axis": {
+          "type": "number",
+          "description": "The semimajor axis of the ellipsoid in meters",
+          "minimum": 0
+        },
+        "semiminor_axis": {
+          "type": "number",
+          "description": "The semiminor axis of the ellipsoid in meters",
+          "minimum": 0
+        },
+        "inverse_flattening": {
+          "type": "number",
+          "description": "The inverse flattening of the ellipsoid",
+          "minimum": 0
+        }
+      },
+      "required": ["semimajor_axis"],
+      "oneOf": [
+        {
+          "required": ["semiminor_axis"],
+          "not": {
+            "required": ["inverse_flattening"]
+          }
+        },
+        {
+          "required": ["inverse_flattening"],
+          "not": {
+            "required": ["semiminor_axis"]
+          }
+        },
+        {
+          "not": {
+            "anyOf": [
+              {
+                "required": ["semiminor_axis"]
+              },
+              {
+                "required": ["inverse_flattening"]
+              }
+            ]
+          }
+        }
       ],
       "additionalProperties": false
     }
-  },
-  "required": ["f010a634-3525-416e-9320-8f44b5bc352c"],
-  "additionalProperties": true
+  }
 }
