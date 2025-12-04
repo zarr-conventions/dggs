@@ -2,7 +2,8 @@
 
 - **UUID**: 7b255807-140c-42ca-97f6-7a1cfecdbc38
 - **Name**: dggs
-- **Schema**: "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v0.1.0/schema.json"
+- **Schema URL**: "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json"
+- **Spec URL**: "https://github.com/zarr-conventions/dggs/blob/v1/README.md"
 - **Extension Maturity Classification**: Proposal
 - **Owner**: @keewis
 
@@ -129,16 +130,15 @@ Uncompressed subdomain:
 ```json
 {
   "attributes": {
-    "zarr_conventions_version": "0.1.0",
-    "zarr_conventions": {
-      "7b255807-140c-42ca-97f6-7a1cfecdbc38": {
-        "version": "0.1.0",
-        "schema": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v0.1.0/schema.json",
+    "zarr_conventions": [
+      {
+        "schema_url": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json",
+        "spec_url": "https://github.com/zarr-conventions/dggs/blob/v1/README.md",
+        "uuid": "7b255807-140c-42ca-97f6-7a1cfecdbc38",
         "name": "dggs",
-        "description": "Discrete Global Grid Systems convention for zarr",
-        "spec": "https://github.com/zarr-conventions/dggs/blob/v0.1.0/README.md"
+        "description": "Discrete Global Grid Systems convention for zarr"
       }
-    },
+    ],
     "dggs": {
       "name": "healpix",
       "refinement_level": 10,
@@ -161,16 +161,15 @@ Full domain, spherical, missing coordinate:
 ```json
 {
   "attributes": {
-    "zarr_conventions_version": "0.1.0",
-    "zarr_conventions": {
-      "7b255807-140c-42ca-97f6-7a1cfecdbc38": {
-        "version": "0.1.0",
-        "schema": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v0.1.0/schema.json",
+    "zarr_conventions": [
+      {
+        "schema_url": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json",
+        "spec_url": "https://github.com/zarr-conventions/dggs/blob/v1/README.md",
+        "uuid": "7b255807-140c-42ca-97f6-7a1cfecdbc38",
         "name": "dggs",
-        "description": "Discrete Global Grid Systems convention for zarr",
-        "spec": "https://github.com/zarr-conventions/dggs/blob/v0.1.0/README.md"
+        "description": "Discrete Global Grid Systems convention for zarr"
       }
-    },
+    ],
     "dggs": {
       "name": "healpix",
       "refinement_level": 16,
