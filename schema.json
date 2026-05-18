@@ -146,7 +146,11 @@
           "description": "sphere",
           "required": ["name", "radius"],
           "not": {
-            "required": ["semi_major_axis", "semi_minor_axis", "inverse_flattening"],
+            "required": [
+              "semi_major_axis",
+              "semi_minor_axis",
+              "inverse_flattening"
+            ]
           }
         },
         {

@@ -21,7 +21,7 @@
       "ellipsoid": {
         "name": "WGS84",
         "semi_major_axis": 6378137.0,
-        "inverse_flattening": 298.257223563,
+        "inverse_flattening": 298.257223563
       }
     }
   }
