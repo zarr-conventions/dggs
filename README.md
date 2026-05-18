@@ -112,7 +112,7 @@ The following values are possible:
 
 ### Ellipsoid object
 
-The ellipsoid object is modelled after [`projjson`](https://proj.org/en/stable/specifications/projjson.html)'s ellipsoid object. It can describe either a sphere or an ellipsoid.
+The ellipsoid object is modelled after [`projjson`](https://proj.org/en/stable/specifications/projjson.html)'s definition. It can describe either a sphere or an ellipsoid.
 
 #### Sphere
 
