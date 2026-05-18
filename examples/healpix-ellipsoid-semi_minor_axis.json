@@ -13,7 +13,7 @@
     ],
     "dggs": {
       "name": "healpix",
-      "refinement_level": 24,
+      "refinement_level": null,
       "indexing_scheme": "zuniq",
       "spatial_dimension": "cell",
       "coordinate": "cell_ids",

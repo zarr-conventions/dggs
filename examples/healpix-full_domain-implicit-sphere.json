@@ -15,8 +15,7 @@
       "name": "healpix",
       "refinement_level": 10,
       "indexing_scheme": "nested",
-      "spatial_dimension": "cell",
-      "compression": "none"
+      "spatial_dimension": "cell"
     }
   }
 }
