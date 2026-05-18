@@ -1,0 +1,21 @@
+{
+  "zarr_format": 3,
+  "node_type": "array",
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "schema_url": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json",
+        "spec_url": "https://github.com/zarr-conventions/dggs/blob/v1/README.md",
+        "uuid": "7b255807-140c-42ca-97f6-7a1cfecdbc38",
+        "name": "dggs",
+        "description": "Discrete Global Grid Systems convention for zarr"
+      }
+    ],
+    "dggs": {
+      "name": "healpix",
+      "refinement_level": 10,
+      "indexing_scheme": "nested",
+      "spatial_dimension": "cell"
+    }
+  }
+}

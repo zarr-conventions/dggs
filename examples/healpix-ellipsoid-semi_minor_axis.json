@@ -13,10 +13,16 @@
     ],
     "dggs": {
       "name": "healpix",
-      "refinement_level": 10,
+      "refinement_level": null,
+      "indexing_scheme": "zuniq",
       "spatial_dimension": "cell",
       "coordinate": "cell_ids",
-      "compression": "none"
+      "compression": "none",
+      "ellipsoid": {
+        "name": "WGS84",
+        "semi_major_axis": 6378137.0,
+        "semi_minor_axis": 6356752.314
+      }
     }
   }
 }

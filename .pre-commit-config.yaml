@@ -12,3 +12,11 @@ repos:
     hooks:
       - id: prettier
         args: ["--cache", "--cache-location=.prettier_cache/cache"]
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.37.2
+    hooks:
+      - id: check-metaschema
+        files: ^schema.json$
+      - id: check-jsonschema
+        args: ["--schemafile", "schema.json"]
+        files: ^examples/.*.json$

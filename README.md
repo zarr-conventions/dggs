@@ -112,14 +112,25 @@ The following values are possible:
 
 ### Ellipsoid object
 
+The ellipsoid object is modelled after [`projjson`](https://proj.org/en/stable/specifications/projjson.html)'s definition. It can describe either a sphere or an ellipsoid.
+
+#### Sphere
+
+|            | Type     | Description                       | Required |
+| ---------- | -------- | --------------------------------- | -------- |
+| **name**   | `string` | Human-readable name of the sphere | Yes      |
+| **radius** | `number` | The radius of the sphere          | Yes      |
+
+#### Ellipsoid
+
 |                        | Type     | Description                             | Required    |
 | ---------------------- | -------- | --------------------------------------- | ----------- |
-| **name**               | `string` | Human-readable name of the ellipsoid    | No          |
-| **semimajor_axis**     | `number` | The semimajor axis of the ellipsoid     | Yes         |
-| **semiminor_axis**     | `number` | The semiminor axis of the ellipsoid     | Conditional |
+| **name**               | `string` | Human-readable name of the ellipsoid    | Yes         |
+| **semi_major_axis**    | `number` | The semimajor axis of the ellipsoid     | Yes         |
+| **semi_minor_axis**    | `number` | The semiminor axis of the ellipsoid     | Conditional |
 | **inverse_flattening** | `number` | The inverse flattening of the ellipsoid | Conditional |
 
-`semiminor_axis` and `inverse_flattening` are mutually exclusive. If none of them are given, a sphere SHALL be assumed. `name` SHOULD be provided if it exists.
+`semi_minor_axis` and `inverse_flattening` are mutually exclusive.
 
 ## Examples
 
@@ -146,7 +157,7 @@ Uncompressed subdomain:
       "spatial_dimension": "cells",
       "ellipsoid": {
         "name": "wgs84",
-        "semimajor_axis": 6378137.0,
+        "semi_major_axis": 6378137.0,
         "inverse_flattening": 298.257223563
       },
       "coordinate": "cell_ids",

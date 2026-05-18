@@ -120,12 +120,17 @@
           "type": "string",
           "description": "Human-readable name of the ellipsoid"
         },
-        "semimajor_axis": {
+        "radius": {
+          "type": "string",
+          "description": "The radius of the sphere in meters",
+          "minimum": 0
+        },
+        "semi_major_axis": {
           "type": "number",
           "description": "The semimajor axis of the ellipsoid in meters",
           "minimum": 0
         },
-        "semiminor_axis": {
+        "semi_minor_axis": {
           "type": "number",
           "description": "The semiminor axis of the ellipsoid in meters",
           "minimum": 0
@@ -136,30 +141,30 @@
           "minimum": 0
         }
       },
-      "required": ["semimajor_axis"],
       "oneOf": [
         {
-          "required": ["semiminor_axis"],
+          "description": "sphere",
+          "required": ["name", "radius"],
           "not": {
-            "required": ["inverse_flattening"]
-          }
-        },
-        {
-          "required": ["inverse_flattening"],
-          "not": {
-            "required": ["semiminor_axis"]
-          }
-        },
-        {
-          "not": {
-            "anyOf": [
-              {
-                "required": ["semiminor_axis"]
-              },
-              {
-                "required": ["inverse_flattening"]
-              }
+            "required": [
+              "semi_major_axis",
+              "semi_minor_axis",
+              "inverse_flattening"
             ]
+          }
+        },
+        {
+          "description": "ellipsoid with semi-major and semi-minor axis",
+          "required": ["name", "semi_major_axis", "semi_minor_axis"],
+          "not": {
+            "required": ["radius", "inverse_flattening"]
+          }
+        },
+        {
+          "description": "ellipsoid with semi-major axis and inverse flattening",
+          "required": ["name", "semi_major_axis", "inverse_flattening"],
+          "not": {
+            "required": ["radius", "semiminor_axis"]
           }
         }
       ],
