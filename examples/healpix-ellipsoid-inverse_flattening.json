@@ -14,9 +14,15 @@
     "dggs": {
       "name": "healpix",
       "refinement_level": 10,
+      "indexing_scheme": "nested",
       "spatial_dimension": "cell",
       "coordinate": "cell_ids",
-      "compression": "none"
+      "compression": "none",
+      "ellipsoid": {
+        "name": "WGS84",
+        "semi_major_axis": 6378137.0,
+        "inverse_flattening": 298.257223563,
+      }
     }
   }
 }
