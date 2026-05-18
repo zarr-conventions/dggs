@@ -16,7 +16,6 @@
       "refinement_level": 10,
       "indexing_scheme": "nested",
       "spatial_dimension": "cell",
-      "coordinate": "cell_ids",
       "compression": "none"
     }
   }
