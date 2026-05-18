@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "zarr-convention-metadata-template",
+  "name": "zarr-convention-dggs",
   "version": "0.1.0",
   "scripts": {
     "test": "node test.js"
