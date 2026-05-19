@@ -45,14 +45,14 @@ This field SHALL describe the concrete instance of the discrete global grid syst
 
 ### DGGS Object
 
-|                       | Type      | Description                                  | Required             | Reference                               |
-| --------------------- | --------- | -------------------------------------------- | -------------------- | --------------------------------------- |
-| **name**              | `string`  | The lower-cased name of the DGGS.            | &#10003; Yes         | [name](#name)                           |
-| **refinement_level**  | `integer` | The refinement level as an unsigned integer. | &#10003; Yes         | [refinement_level](#refinement_level)   |
-| **ellipsoid**         | `object`  | The ellipsoid used as a reference body.      | &#10005; No          | [ellipsoid](#ellipsoid)                 |
-| **spatial_dimension** | `string`  | Name of the spatial dimension                | &#10003; Yes         | [spatial_dimension](#spatial_dimension) |
-| **coordinate**        | `string`  | Name of the coordinate                       | &#10005; No          | [coordinate](#coordinate)               |
-| **compression**       | `string`  | Compression type of the coordinate           | &#10068; Conditional | [compression](#compression)             |
+|                       | Type      | Description                                  | Required     | Reference                               |
+| --------------------- | --------- | -------------------------------------------- | ------------ | --------------------------------------- |
+| **name**              | `string`  | The lower-cased name of the DGGS.            | &#10003; Yes | [name](#name)                           |
+| **refinement_level**  | `integer` | The refinement level as an unsigned integer. | &#10003; Yes | [refinement_level](#refinement_level)   |
+| **ellipsoid**         | `object`  | The ellipsoid used as a reference body.      | &#10005; No  | [ellipsoid](#ellipsoid)                 |
+| **spatial_dimension** | `string`  | Name of the spatial dimension                | &#10003; Yes | [spatial_dimension](#spatial_dimension) |
+| **coordinate**        | `string`  | Name of the coordinate                       | &#10005; No  | [coordinate](#coordinate)               |
+| **compression**       | `string`  | Compression type of the coordinate           | Conditional  | [compression](#compression)             |
 
 Additional DGGS-specific parameters are allowed.
 
