@@ -52,7 +52,7 @@ This field SHALL describe the concrete instance of the discrete global grid syst
 | **ellipsoid**         | `object`  | The ellipsoid used as a reference body.      | &#10005; No          | [ellipsoid](#ellipsoid)                 |
 | **spatial_dimension** | `string`  | Name of the spatial dimension                | &#10003; Yes         | [spatial_dimension](#spatial_dimension) |
 | **coordinate**        | `string`  | Name of the coordinate                       | &#10005; No          | [coordinate](#coordinate)               |
-| **compression**       | `string`  | Compression type of the coordinate           | &#10067; Conditional | [compression](#compression)             |
+| **compression**       | `string`  | Compression type of the coordinate           | &#10068; Conditional | [compression](#compression)             |
 
 Additional DGGS-specific parameters are allowed.
 
