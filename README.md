@@ -102,7 +102,7 @@ The name of spatial dimension.
 Uncompressing the cell ids SHALL result in an array of the same length as the `spatial_dimension`.
 
 - **Type**: `string`
-- **Required**: &#10005; No
+- **Required**: Conditional
 
 The following values are possible:
 
