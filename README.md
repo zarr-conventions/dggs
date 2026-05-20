@@ -41,7 +41,7 @@ Object representing the conrete instance of the discrete global grid system.
 - **Type**: `object`
 - **Required**: &#10003; Yes
 
-This field SHALL describe the concrete instance of the discrete global grid system. See the [DGGS Object](#dggs-object) section below for details.
+This field MUST describe the concrete instance of the discrete global grid system. See the [DGGS Object](#dggs-object) section below for details.
 
 ### DGGS Object
 
@@ -79,7 +79,7 @@ The ellipsoid describes the reference system of the DGGS. See the [ellipsoid obj
 - **Type**: `object`
 - **Required**: &#10005; No
 
-If not given, a sphere with a radius of `6370997 m` SHALL be assumed.
+If not given, a sphere with a radius of `6370997 m` MUST be assumed.
 
 #### spatial_dimension
 
@@ -97,9 +97,9 @@ The name of spatial dimension.
 
 #### compression
 
-`compression` describes the cell id compression method chosen. It SHALL only be provided if the `coordinate` was provided. If `refinement_level` is `null`, `compression` SHALL be `"none"`.
+`compression` describes the cell id compression method chosen. It MUST only be provided if the `coordinate` was provided. If `refinement_level` is `null`, `compression` MUST be `"none"`.
 
-Uncompressing the cell ids SHALL result in an array of the same length as the `spatial_dimension`.
+Uncompressing the cell ids MUST result in an array of the same length as the `spatial_dimension`.
 
 - **Type**: `string`
 - **Required**: Conditional
