@@ -2,8 +2,8 @@
 
 - **UUID**: 7b255807-140c-42ca-97f6-7a1cfecdbc38
 - **Name**: dggs
-- **Schema URL**: "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json"
-- **Spec URL**: "https://github.com/zarr-conventions/dggs/blob/v1/README.md"
+- **Schema URL**: https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json
+- **Spec URL**: https://github.com/zarr-conventions/dggs/blob/v1/README.md
 - **Extension Maturity Classification**: Proposal
 - **Owner**: @keewis
 
