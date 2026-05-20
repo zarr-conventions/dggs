@@ -11,6 +11,8 @@
 
 This convention describes a JSON object that encodes the coordinate and grid parameters of a discrete global grid system (DGGS) under the `dggs` key in the attributes of zarr groups and arrays.
 
+It is inspired by the CF conventions' `healpix` grid mapping (first included in version 1.13), but deliberately makes different choices in some cases to be more broadly useful in the zarr ecosystem.
+
 ## Inheritance Model
 
 The `dggs` convention object follows a simple group-to-array inheritance model that should be understood first:
