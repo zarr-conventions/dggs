@@ -158,7 +158,7 @@ Uncompressed subdomain:
       "indexing_scheme": "nested",
       "spatial_dimension": "cells",
       "ellipsoid": {
-        "name": "wgs84",
+        "name": "WGS84",
         "semi_major_axis": 6378137.0,
         "inverse_flattening": 298.257223563
       },
