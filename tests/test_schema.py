@@ -91,10 +91,8 @@ class TestCompression:
     @pytest.mark.skip(reason="not yet encoded in the schema")
     @pytest.mark.parametrize("compression", ["compacted", "ranges"])
     def test_compression_coordinate_missing_invalid(self, schema, compression):
-        additional_metadata: JSON = {
-            "compression": compression,
-        }
-        data: JSON = embed_attributes(
+        additional_metadata: JSON = {"compression": compression}
+        data = embed_attributes(
             zarr_conventions=[convention_metadata], dggs=self.dggs | additional_metadata
         )
         with pytest.raises(ValidationError):
