@@ -146,7 +146,9 @@ The HEALPix DGGS (`"name": "healpix"`) has one additional required parameter:
 | ------------------- | -------- | ----------------------- | ------------ |
 | **indexing_scheme** | `string` | HEALPix indexing scheme | &#10003; Yes |
 
-The **indexing_scheme** parameter describes the space-filling curve used to index the cells. For values other than `ring` or `nested` the `refinement_level` must be `null`. Known values are: `nested`, `ring`, `zuniq`, `nuniq`.
+The **indexing_scheme** parameter describes the space-filling curve used to index the cells. For values other than `ring` or `nested` the `refinement_level` must be `null`.
+
+Known values are: `nested`, `ring`, `zuniq`, `nuniq` (but there are many more that follow the structure of `*uniq`).
 
 ## Examples
 
