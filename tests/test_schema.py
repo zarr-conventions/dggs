@@ -159,3 +159,15 @@ class TestEllipsoid:
 
         with pytest.raises(ValidationError):
             jsonschema.validate(data, schema)
+
+    def test_name_missing(self, schema):
+        ellipsoid = {
+            "radius": 6370997.0
+        }
+        data = embed_attributes(
+            zarr_conventions=[convention_metadata],
+            dggs=self.dggs_metadata | {"ellipsoid": ellipsoid}
+        )
+
+        with pytest.raises(ValidationError):
+            jsonschema.validate(data, schema)
