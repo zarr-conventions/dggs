@@ -111,7 +111,7 @@
       },
       "required": ["name", "refinement_level", "spatial_dimension"],
       "additionalProperties": true,
-      "oneOf": [
+      "allOf": [
         {
           "description": "special cases for the HEALPix DGGS",
           "if": {
@@ -120,19 +120,27 @@
             }
           },
           "then": {
-            "properties": {
-              "oneOf": [
-                {
+            "oneOf": [
+              {
+                "properties": {
                   "indexing_scheme": {
                     "enum": ["nested", "ring"]
+                  },
+                  "refinement_level": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 29
                   }
-                },
-                {
-                  "indexing_scheme": { "type": "string" },
-                  "refinement_level": null
                 }
-              ]
-            }
+              },
+              {
+                "properties": {
+                  "indexing_scheme": { "enum": ["zuniq", "nuniq"] },
+                  "refinement_level": { "const": null }
+                }
+              }
+            ],
+            "required": ["indexing_scheme"]
           }
         }
       ]
