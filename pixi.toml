@@ -4,7 +4,9 @@ name = "dggs"
 platforms = ["linux-64"]
 
 [tasks]
+tests = "pytest"
 
 [dependencies]
 pytest = ">=9.0.3,<10"
 jsonschema = ">=4.26.0,<5"
+python = "3.14.*"
