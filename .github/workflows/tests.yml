@@ -17,6 +17,7 @@ jobs:
   tests:
     name: Schema tests
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'zarr-conventions'
 
     env:
       FORCE_COLOR: 3
