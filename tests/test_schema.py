@@ -101,6 +101,71 @@ class TestCompression:
             jsonschema.validate(data, schema)
 
 
+class TestHealpix:
+    def test_indexing_scheme_missing(self, schema):
+        dggs = {
+            "name": "healpix",
+            "refinement_level": 10,
+            "spatial_dimension": "cells",
+            "coordinate": "cell_ids",
+            "compression": "none",
+        }
+        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+        with pytest.raises(ValidationError):
+            jsonschema.validate(data, schema)
+
+    @pytest.mark.parametrize("scheme", ["nested", "ring"])
+    def test_constant_scheme(self, schema, scheme):
+        dggs = {
+            "name": "healpix",
+            "refinement_level": 10,
+            "indexing_scheme": scheme,
+            "spatial_dimension": "cells",
+            "coordinate": "cell_ids",
+            "compression": "none",
+        }
+        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+        jsonschema.validate(data, schema)
+
+    def test_variable_scheme(self, schema):
+        dggs = {
+            "name": "healpix",
+            "refinement_level": None,
+            "indexing_scheme": "zuniq",
+            "spatial_dimension": "cells",
+            "coordinate": "cell_ids",
+            "compression": "none",
+        }
+        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+        jsonschema.validate(data, schema)
+
+    def test_indexing_scheme_invalid(self, schema):
+        dggs = {
+            "name": "healpix",
+            "refinement_level": 10,
+            "indexing_scheme": "invalid",
+            "spatial_dimension": "cells",
+            "coordinate": "cell_ids",
+            "compression": "none",
+        }
+        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+        with pytest.raises(ValidationError):
+            jsonschema.validate(data, schema)
+
+    def test_zuniq_concrete_level(self, schema):
+        dggs = {
+            "name": "healpix",
+            "refinement_level": 10,
+            "indexing_scheme": "zuniq",
+            "spatial_dimension": "cells",
+            "coordinate": "cell_ids",
+            "compression": "none",
+        }
+        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+        with pytest.raises(ValidationError):
+            jsonschema.validate(data, schema)
+
+
 class TestEllipsoid:
     dggs_metadata: ClassVar[JSON] = {
         "name": "h3",
