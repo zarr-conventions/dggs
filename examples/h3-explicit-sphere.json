@@ -16,7 +16,11 @@
       "refinement_level": 10,
       "spatial_dimension": "cell",
       "coordinate": "cell_ids",
-      "compression": "none"
+      "compression": "none",
+      "ellipsoid": {
+        "name": "sphere",
+        "radius": 6370997.0
+      }
     }
   }
 }

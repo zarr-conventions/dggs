@@ -121,7 +121,7 @@
           "description": "Human-readable name of the ellipsoid"
         },
         "radius": {
-          "type": "string",
+          "type": "number",
           "description": "The radius of the sphere in meters",
           "minimum": 0
         },
