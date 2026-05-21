@@ -6,7 +6,7 @@ from jsonschema.exceptions import ValidationError
 
 JSON = dict[str, "JSON"] | list["JSON"] | str | int | float | bool | None
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def schema():
     path = pathlib.Path(__file__).parent.parent / "schema.json"
     return json.loads(path.read_text())
