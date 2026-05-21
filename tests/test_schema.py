@@ -112,6 +112,18 @@ def test_additional_parameters(schema):
 
 
 class TestHealpix:
+    def test_additional_parameters(self, schema):
+        dggs = {
+            "name": "healpix",
+            "refinement_level": 4,
+            "indexing_scheme": "nested",
+            "generic_parameter": "some_value",
+            "spatial_dimension": "cells",
+        }
+        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+
+        jsonschema.validate(data, schema)
+
     def test_indexing_scheme_missing(self, schema):
         dggs = {
             "name": "healpix",
