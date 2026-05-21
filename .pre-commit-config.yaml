@@ -19,4 +19,4 @@ repos:
         files: ^schema.json$
       - id: check-jsonschema
         args: ["--schemafile", "schema.json"]
-        files: ^examples/.*.json|examples/bad/.*.json$
+        files: ^examples/.*.json$
