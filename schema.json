@@ -135,7 +135,10 @@
               },
               {
                 "properties": {
-                  "indexing_scheme": { "enum": ["zuniq", "nuniq"] },
+                  "indexing_scheme": {
+                    "type": "string",
+                    "pattern": "^[a-z_]*uniq$"
+                  },
                   "refinement_level": { "const": null }
                 }
               }
