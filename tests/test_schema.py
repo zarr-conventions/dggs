@@ -44,6 +44,52 @@ def test_validate_missing_convention_declaration(schema):
     with pytest.raises(ValidationError):
         jsonschema.validate(data, schema)
 
+class TestCompression:
+    dggs: ClassVar[JSON] = {
+            "name": "healpix",
+            "refinement_level": 10,
+            "indexing_scheme": "nested",
+            "spatial_dimension": "cells",
+    }
+
+    @pytest.mark.parametrize("compression", ["none", "compacted", "ranges"])
+    def test_compression_valid(self, schema, compression):
+        additional_metadata: JSON = {
+            "coordinate": "cell_ids",
+            "compression": compression,
+        }
+        data: JSON = embed_attributes(zarr_conventions=[convention_metadata], dggs=self.dggs | additional_metadata)
+
+        jsonschema.validate(data, schema)
+
+    @pytest.mark.parametrize("compression", ["unknown", "invalid"])
+    def test_compression_invalid(self, schema, compression):
+        additional_metadata: JSON = {
+            "coordinate": "cell_ids",
+            "compression": compression,
+        }
+        data: JSON = embed_attributes(zarr_conventions=[convention_metadata], dggs=self.dggs | additional_metadata)
+
+        with pytest.raises(ValidationError):
+            jsonschema.validate(data, schema)
+
+    def test_compression_coordinate_missing_valid(self, schema):
+        additional_metadata: JSON = {
+            "compression": "none"
+        }
+        data: JSON = embed_attributes(zarr_conventions=[convention_metadata], dggs=self.dggs | additional_metadata)
+        jsonschema.validate(data, schema)
+
+    @pytest.mark.skip(reason="not yet encoded in the schema")
+    @pytest.mark.parametrize("compression", ["compacted", "ranges"])
+    def test_compression_coordinate_missing_invalid(self, schema, compression):
+        additional_metadata: JSON = {
+            "compression": compression,
+        }
+        data: JSON = embed_attributes(zarr_conventions=[convention_metadata], dggs=self.dggs | additional_metadata)
+        with pytest.raises(ValidationError):
+            jsonschema.validate(data, schema)
+
 class TestEllipsoid:
     dggs_metadata: ClassVar[JSON] = {
               "name": "h3",
