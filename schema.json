@@ -110,7 +110,32 @@
         }
       },
       "required": ["name", "refinement_level", "spatial_dimension"],
-      "additionalProperties": true
+      "additionalProperties": true,
+      "oneOf": [
+        {
+          "description": "special cases for the HEALPix DGGS",
+          "if": {
+            "properties": {
+              "name": { "const": "healpix" }
+            }
+          },
+          "then": {
+            "properties": {
+              "oneOf": [
+                {
+                  "indexing_scheme": {
+                    "enum": ["nested", "ring"]
+                  }
+                },
+                {
+                  "indexing_scheme": { "type": "string" },
+                  "refinement_level": null
+                }
+              ]
+            }
+          }
+        }
+      ]
     },
     "ellipsoidObject": {
       "type": "object",
