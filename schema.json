@@ -89,7 +89,7 @@
         },
         "refinement_level": {
           "type": ["integer", "null"],
-          "description": "The refinement level (depth/order) as an unsigned integer. Can be null if coordinate is variable-sized",
+          "description": "The refinement level (depth/order) as an unsigned integer. Can be null if cells are variable-sized.",
           "minimum": 0
         },
         "ellipsoid": {
