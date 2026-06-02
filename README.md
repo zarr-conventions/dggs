@@ -4,7 +4,7 @@
 - **Name**: dggs
 - **Schema URL**: https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json
 - **Spec URL**: https://github.com/zarr-conventions/dggs/blob/v1/README.md
-- **Extension Maturity Classification**: Proposal
+- **Extension Maturity Classification**: Pilot
 - **Owner**: @keewis
 
 ## Description
