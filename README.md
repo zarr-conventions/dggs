@@ -116,6 +116,17 @@ The following values are possible:
 
 The ellipsoid object is modelled after [`projjson`](https://proj.org/en/stable/specifications/projjson.html)'s definition. It can describe either a sphere or an ellipsoid.
 
+Following `projjson` and WKT the **name** is required to help compare the values in the ellipsoid object against other sources, but should not be used to infer the values. For examples, look for the ellipsoid fields in these CRS definitions:
+
+| Naming Authority                        | URL                                                    |
+| --------------------------------------- | ------------------------------------------------------ |
+| European Petroleum Survey Groups (EPSG) | http://www.opengis.net/def/crs/EPSG or http://epsg.org |
+| International Astronomical Union (IAU)  | http://www.opengis.net/def/crs/IAU                     |
+| Open Geospatial Consortium (OGC)        | http://www.opengis.net/def/crs/OGC                     |
+| ESRI                                    | https://spatialreference.org/ref/esri/                 |
+
+(taken from the `proj:code` documentation of the [`proj` convention](https://github.com/zarr-conventions/proj))
+
 #### Sphere
 
 |            | Type     | Description                       | Required     |
@@ -136,7 +147,7 @@ The ellipsoid object is modelled after [`projjson`](https://proj.org/en/stable/s
 
 ### DGGS specific parameters
 
-Some DGGS have parameters other than `refinement_level`, which can be added to the `dggs` object. In this section are standardized extensions for common DGGS
+Some DGGS have parameters other than `refinement_level`, which can be added to the `dggs` object. This section contains standardized extensions for common DGGS.
 
 #### HEALPix
 
