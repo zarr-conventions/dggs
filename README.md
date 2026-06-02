@@ -125,6 +125,8 @@ As in WKT the **name** is required to help compare the values in the ellipsoid o
 | Open Geospatial Consortium (OGC)        | http://www.opengis.net/def/crs/OGC                     |
 | ESRI                                    | https://spatialreference.org/ref/esri/                 |
 
+(taken from the `proj:code` documentation of the [`proj` convention](https://github.com/zarr-conventions/proj))
+
 #### Sphere
 
 |            | Type     | Description                       | Required     |
