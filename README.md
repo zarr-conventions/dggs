@@ -116,7 +116,7 @@ The following values are possible:
 
 The ellipsoid object is modelled after [`projjson`](https://proj.org/en/stable/specifications/projjson.html)'s definition. It can describe either a sphere or an ellipsoid.
 
-Following `projjson` or WKT the **name** is required to help compare the values in the ellipsoid object against other sources, but should not be interpreted by a program. For examples, look for the ellipsoid fields in these CRS definitions:
+Following `projjson` and WKT the **name** is required to help compare the values in the ellipsoid object against other sources, but should not be used to infer the values. For examples, look for the ellipsoid fields in these CRS definitions:
 
 | Naming Authority                        | URL                                                    |
 | --------------------------------------- | ------------------------------------------------------ |
