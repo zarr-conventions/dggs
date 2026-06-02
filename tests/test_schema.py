@@ -91,17 +91,39 @@ class TestCompression:
     @pytest.mark.skip(reason="not yet encoded in the schema")
     @pytest.mark.parametrize("compression", ["compacted", "ranges"])
     def test_compression_coordinate_missing_invalid(self, schema, compression):
-        additional_metadata: JSON = {
-            "compression": compression,
-        }
-        data: JSON = embed_attributes(
+        additional_metadata: JSON = {"compression": compression}
+        data = embed_attributes(
             zarr_conventions=[convention_metadata], dggs=self.dggs | additional_metadata
         )
         with pytest.raises(ValidationError):
             jsonschema.validate(data, schema)
 
 
+def test_additional_parameters(schema):
+    dggs = {
+        "name": "generic",
+        "refinement_level": 4,
+        "generic_parameter": "some_value",
+        "spatial_dimension": "cells",
+    }
+    data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+
+    jsonschema.validate(data, schema)
+
+
 class TestHealpix:
+    def test_additional_parameters(self, schema):
+        dggs = {
+            "name": "healpix",
+            "refinement_level": 4,
+            "indexing_scheme": "nested",
+            "generic_parameter": "some_value",
+            "spatial_dimension": "cells",
+        }
+        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+
+        jsonschema.validate(data, schema)
+
     def test_indexing_scheme_missing(self, schema):
         dggs = {
             "name": "healpix",
