@@ -138,7 +138,7 @@ In all cases, the **name** must exactly correspond to the names used by the [pro
 
 ### DGGS specific parameters
 
-Some DGGS have parameters other than `refinement_level`, which can be added to the `dggs` object. In this section are standardized extensions for common DGGS
+Some DGGS have parameters other than `refinement_level`, which can be added to the `dggs` object. This section contains standardized extensions for common DGGS.
 
 #### HEALPix
 
