@@ -116,7 +116,14 @@ The following values are possible:
 
 The ellipsoid object is modelled after [`projjson`](https://proj.org/en/stable/specifications/projjson.html)'s definition. It can describe either a sphere or an ellipsoid.
 
-In all cases, the **name** is equal to the names used in WKT or PROJJSON (see also the [proj](https://github.com/zarr-conventions/proj/#projcode) extension's `proj:code` property).
+As in WKT the **name** is required to help compare the values in the ellipsoid object against other sources. For examples, look for the ellipsoid fields in CRS definitions:
+
+| Naming Authority                        | URL                                                    |
+| --------------------------------------- | ------------------------------------------------------ |
+| European Petroleum Survey Groups (EPSG) | http://www.opengis.net/def/crs/EPSG or http://epsg.org |
+| International Astronomical Union (IAU)  | http://www.opengis.net/def/crs/IAU                     |
+| Open Geospatial Consortium (OGC)        | http://www.opengis.net/def/crs/OGC                     |
+| ESRI                                    | https://spatialreference.org/ref/esri/                 |
 
 #### Sphere
 
