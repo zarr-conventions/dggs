@@ -19,12 +19,21 @@ def embed_attributes(**attrs: JSON) -> JSON:
     return {"zarr_format": 3, "node_type": "group", "attributes": attrs}
 
 
-convention_metadata = {
-    "schema_url": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json",
-    "spec_url": "https://github.com/zarr-conventions/dggs/blob/v1/README.md",
-    "uuid": "7b255807-140c-42ca-97f6-7a1cfecdbc38",
-    "name": "dggs",
-    "description": "Discrete Global Grid Systems convention for zarr",
+conventions = {
+    "dggs": {
+        "schema_url": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json",
+        "spec_url": "https://github.com/zarr-conventions/dggs/blob/v1/README.md",
+        "uuid": "7b255807-140c-42ca-97f6-7a1cfecdbc38",
+        "name": "dggs",
+        "description": "Discrete Global Grid Systems convention for zarr",
+    },
+    "multiscales": {
+        "schema_url": "https://raw.githubusercontent.com/zarr-conventions/multiscales/refs/tags/v1/schema.json",
+        "spec_url": "https://github.com/zarr-conventions/multiscales/blob/v1/README.md",
+        "uuid": "d35379db-88df-4056-af3a-620245f8e347",
+        "name": "multiscales",
+        "description": "Multiscale layout of zarr datasets",
+    },
 }
 
 
@@ -63,7 +72,8 @@ class TestCompression:
             "compression": compression,
         }
         data: JSON = embed_attributes(
-            zarr_conventions=[convention_metadata], dggs=self.dggs | additional_metadata
+            zarr_conventions=[conventions["dggs"]],
+            dggs=self.dggs | additional_metadata,
         )
 
         jsonschema.validate(data, schema)
@@ -75,7 +85,7 @@ class TestCompression:
             "compression": compression,
         }
         data: JSON = embed_attributes(
-            zarr_conventions=[convention_metadata], dggs=self.dggs | additional_metadata
+            zarr_conventions=[conventions["dggs"]], dggs=self.dggs | additional_metadata
         )
 
         with pytest.raises(ValidationError):
@@ -84,7 +94,7 @@ class TestCompression:
     def test_compression_coordinate_missing_valid(self, schema):
         additional_metadata: JSON = {"compression": "none"}
         data: JSON = embed_attributes(
-            zarr_conventions=[convention_metadata], dggs=self.dggs | additional_metadata
+            zarr_conventions=[conventions["dggs"]], dggs=self.dggs | additional_metadata
         )
         jsonschema.validate(data, schema)
 
@@ -93,7 +103,7 @@ class TestCompression:
     def test_compression_coordinate_missing_invalid(self, schema, compression):
         additional_metadata: JSON = {"compression": compression}
         data = embed_attributes(
-            zarr_conventions=[convention_metadata], dggs=self.dggs | additional_metadata
+            zarr_conventions=[conventions["dggs"]], dggs=self.dggs | additional_metadata
         )
         with pytest.raises(ValidationError):
             jsonschema.validate(data, schema)
@@ -106,7 +116,7 @@ def test_additional_parameters(schema):
         "generic_parameter": "some_value",
         "spatial_dimension": "cells",
     }
-    data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+    data = embed_attributes(zarr_conventions=[conventions["dggs"]], dggs=dggs)
 
     jsonschema.validate(data, schema)
 
@@ -120,7 +130,7 @@ class TestHealpix:
             "generic_parameter": "some_value",
             "spatial_dimension": "cells",
         }
-        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+        data = embed_attributes(zarr_conventions=[conventions["dggs"]], dggs=dggs)
 
         jsonschema.validate(data, schema)
 
@@ -132,7 +142,7 @@ class TestHealpix:
             "coordinate": "cell_ids",
             "compression": "none",
         }
-        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+        data = embed_attributes(zarr_conventions=[conventions["dggs"]], dggs=dggs)
         with pytest.raises(ValidationError):
             jsonschema.validate(data, schema)
 
@@ -146,7 +156,7 @@ class TestHealpix:
             "coordinate": "cell_ids",
             "compression": "none",
         }
-        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+        data = embed_attributes(zarr_conventions=[conventions["dggs"]], dggs=dggs)
         jsonschema.validate(data, schema)
 
     def test_variable_scheme(self, schema):
@@ -158,7 +168,7 @@ class TestHealpix:
             "coordinate": "cell_ids",
             "compression": "none",
         }
-        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+        data = embed_attributes(zarr_conventions=[conventions["dggs"]], dggs=dggs)
         jsonschema.validate(data, schema)
 
     def test_indexing_scheme_invalid(self, schema):
@@ -170,7 +180,7 @@ class TestHealpix:
             "coordinate": "cell_ids",
             "compression": "none",
         }
-        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+        data = embed_attributes(zarr_conventions=[conventions["dggs"]], dggs=dggs)
         with pytest.raises(ValidationError):
             jsonschema.validate(data, schema)
 
@@ -183,7 +193,7 @@ class TestHealpix:
             "coordinate": "cell_ids",
             "compression": "none",
         }
-        data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
+        data = embed_attributes(zarr_conventions=[conventions["dggs"]], dggs=dggs)
         with pytest.raises(ValidationError):
             jsonschema.validate(data, schema)
 
@@ -199,7 +209,7 @@ class TestEllipsoid:
 
     def test_validate_implicit_sphere(self, schema):
         data: JSON = embed_attributes(
-            zarr_conventions=[convention_metadata], dggs=self.dggs_metadata
+            zarr_conventions=[conventions["dggs"]], dggs=self.dggs_metadata
         )
         jsonschema.validate(data, schema)
 
@@ -210,7 +220,7 @@ class TestEllipsoid:
             "semi_minor_axis": 6356752.314,
         }
         data = embed_attributes(
-            zarr_conventions=[convention_metadata],
+            zarr_conventions=[conventions["dggs"]],
             dggs=self.dggs_metadata | {"ellipsoid": ellipsoid},
         )
         jsonschema.validate(data, schema)
@@ -222,7 +232,7 @@ class TestEllipsoid:
             "inverse_flattening": 298.257223563,
         }
         data = embed_attributes(
-            zarr_conventions=[convention_metadata],
+            zarr_conventions=[conventions["dggs"]],
             dggs=self.dggs_metadata | {"ellipsoid": ellipsoid},
         )
         jsonschema.validate(data, schema)
@@ -231,7 +241,7 @@ class TestEllipsoid:
         ellipsoid = {"name": "sphere", "radius": 6370997.0}
 
         data = embed_attributes(
-            zarr_conventions=[convention_metadata],
+            zarr_conventions=[conventions["dggs"]],
             dggs=self.dggs_metadata | {"ellipsoid": ellipsoid},
         )
         jsonschema.validate(data, schema)
@@ -244,7 +254,7 @@ class TestEllipsoid:
             "radius": 6370997.0,
         }
         data = embed_attributes(
-            zarr_conventions=[convention_metadata],
+            zarr_conventions=[conventions["dggs"]],
             dggs=self.dggs_metadata | {"ellipsoid": ellipsoid},
         )
 
@@ -259,7 +269,7 @@ class TestEllipsoid:
             "semi_minor_axis": 6356000.0,
         }
         data = embed_attributes(
-            zarr_conventions=[convention_metadata],
+            zarr_conventions=[conventions["dggs"]],
             dggs=self.dggs_metadata | {"ellipsoid": ellipsoid},
         )
 
@@ -269,8 +279,91 @@ class TestEllipsoid:
     def test_name_missing(self, schema):
         ellipsoid = {"radius": 6370997.0}
         data = embed_attributes(
-            zarr_conventions=[convention_metadata],
+            zarr_conventions=[conventions["dggs"]],
             dggs=self.dggs_metadata | {"ellipsoid": ellipsoid},
+        )
+
+        with pytest.raises(ValidationError):
+            jsonschema.validate(data, schema)
+
+
+class TestMultiscales:
+    dggs_metadata: ClassVar[JSON] = {
+        "name": "h3",
+        "refinement_level": 10,
+        "spatial_dimension": "cell",
+        "coordinate": "cell_ids",
+        "compression": "none",
+    }
+
+    def test_single(self, schema):
+        multiscales_data = {
+            "layout": [{"asset": "0", "dggs": self.dggs_metadata}],
+            "resampling_method": "average",
+        }
+        data = embed_attributes(
+            zarr_conventions=[conventions["dggs"], conventions["multiscales"]],
+            multiscales=multiscales_data,
+        )
+
+        jsonschema.validate(data, schema)
+
+    def test_derived_absolute(self, schema):
+        multiscales_data = {
+            "layout": [
+                {"asset": "0", "dggs": self.dggs_metadata},
+                {
+                    "asset": "1",
+                    "dggs": self.dggs_metadata | {"refinement_level": 8},
+                    "derived_from": "0",
+                },
+            ],
+            "resampling_method": "average",
+        }
+        data = embed_attributes(
+            zarr_conventions=[conventions["dggs"], conventions["multiscales"]],
+            multiscales=multiscales_data,
+        )
+
+        jsonschema.validate(data, schema)
+
+    def test_derived_relative(self, schema):
+        multiscales_data = {
+            "layout": [
+                {"asset": "0", "dggs": self.dggs_metadata},
+                {
+                    "asset": "1",
+                    "dggs": {"refinement_level": 8},
+                    "derived_from": "0",
+                },
+            ],
+            "resampling_method": "average",
+        }
+        data = embed_attributes(
+            zarr_conventions=[conventions["dggs"], conventions["multiscales"]],
+            multiscales=multiscales_data,
+        )
+
+        jsonschema.validate(data, schema)
+
+    def test_single_relative(self, schema):
+        multiscales_data = {
+            "layout": [
+                {"asset": "0", "dggs": {"refinement_level": 8}},
+            ],
+            "resampling_method": "average",
+        }
+        data = embed_attributes(
+            zarr_conventions=[conventions["dggs"], conventions["multiscales"]],
+            multiscales=multiscales_data,
+        )
+
+        with pytest.raises(ValidationError):
+            jsonschema.validate(data, schema)
+
+    def test_unused_conventions(self, schema):
+        data = embed_attributes(
+            zarr_conventions=[conventions["dggs"], conventions["multiscales"]],
         )
 
         with pytest.raises(ValidationError):
