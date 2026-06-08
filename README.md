@@ -13,6 +13,12 @@ This convention describes a JSON object that encodes the coordinate and grid par
 
 It is inspired by the CF conventions' `healpix` grid mapping (first included in version 1.13), but deliberately makes different choices in some cases to be more broadly useful in the zarr ecosystem.
 
+Examples:
+
+- [`healpix` on WGS84](examples/healpix-ellipsoid-inverse-flattening.json)
+- [Full domain `healpix` with an implict sphere](examples/healpix-full_domain-implicit-sphere.json)
+- [`h3` with an explicit sphere](examples/h3-explicit-sphere.json)
+
 ## Inheritance Model
 
 The `dggs` convention object follows a simple group-to-array inheritance model that should be understood first:
