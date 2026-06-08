@@ -232,6 +232,64 @@ Full domain, spherical, missing coordinate:
 }
 ```
 
+Composition with the `multiscales` convention:
+
+```json
+{
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "schema_url": "https://raw.githubusercontent.com/zarr-conventions/multiscales/refs/tags/v1/schema.json",
+        "spec_url": "https://github.com/zarr-conventions/multiscales/blob/v1/README.md",
+        "uuid": "d35379db-88df-4056-af3a-620245f8e347",
+        "name": "multiscales",
+        "description": "Multiscale layout of zarr datasets"
+      },
+      {
+        "schema_url": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json",
+        "spec_url": "https://github.com/zarr-conventions/dggs/blob/v1/README.md",
+        "uuid": "7b255807-140c-42ca-97f6-7a1cfecdbc38",
+        "name": "dggs",
+        "description": "Discrete Global Grid Systems convention for zarr"
+      }
+    ],
+    "multiscales": {
+      "layout": [
+        {
+          "asset": "10",
+          "dggs": {
+            "name": "healpix",
+            "refinement_level": 10,
+            "indexing_scheme": "nested",
+            "spatial_dimension": "cells",
+            "ellipsoid": {
+              "name": "WGS84",
+              "semi_major_axis": 6378137.0,
+              "inverse_flattening": 298.257223563
+            },
+            "coordinate": "cell_ids",
+            "compression": "none"
+          }
+        },
+        {
+          "asset": "8",
+          "derived_from": "10",
+          "transform": { "scale": [4.0] },
+          "dggs": { "refinement_level": 8 }
+        },
+        {
+          "asset": "4",
+          "derived_from": "10",
+          "transform": { "scale": [64.0] },
+          "dggs": { "refinement_level": 4 }
+        }
+      ],
+      "resampling_method": "average"
+    }
+  }
+}
+```
+
 ## Acknowledgements
 
 This template is based on the [STAC extensions template](https://github.com/stac-extensions/template/blob/main/README.md).
