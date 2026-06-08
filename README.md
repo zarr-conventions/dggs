@@ -167,6 +167,12 @@ The **indexing_scheme** parameter describes the space-filling curve used to inde
 
 Known values are: `nested`, `ring`, `zuniq`, `nuniq` (but there are many more where the name matches `[a-z_]*uniq`).
 
+## Usage with the [`multiscales`](https://github.com/zarr-conventions/multiscales) convention
+
+The `multiscales` convention allows describing the relationships between the sibling groups in an image pyramid. Since rotations (translations on a sphere or ellipsoid) are not supported, any `transform` objects (as required by the presence of the `derived_from` attribute) MUST contain only a single element `scale` array, and MUST NOT contain a `translation` attribute.
+
+To be fully self-contained, it is recommended to specify the full `dggs` object for the original data. Any derived groups (as indicated by the presence of `derived_from`) MAY then contain a reduced `dggs` object that contains only the changed properties.
+
 ## Examples
 
 ### HEALPix
