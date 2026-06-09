@@ -289,8 +289,9 @@ class TestEllipsoid:
 
 class TestMultiscales:
     dggs_metadata: ClassVar[JSON] = {
-        "name": "h3",
+        "name": "healpix",
         "refinement_level": 10,
+        "indexing_scheme": "nested",
         "spatial_dimension": "cell",
         "coordinate": "cell_ids",
         "compression": "none",
@@ -315,6 +316,7 @@ class TestMultiscales:
                 {
                     "asset": "1",
                     "dggs": self.dggs_metadata | {"refinement_level": 8},
+                    "transform": {"scale": [4.0]},
                     "derived_from": "0",
                 },
             ],
@@ -334,6 +336,7 @@ class TestMultiscales:
                 {
                     "asset": "1",
                     "dggs": {"refinement_level": 8},
+                    "transform": {"scale": [4.0]},
                     "derived_from": "0",
                 },
             ],
