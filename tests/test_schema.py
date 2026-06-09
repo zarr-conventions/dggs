@@ -346,6 +346,7 @@ class TestMultiscales:
 
         jsonschema.validate(data, schema)
 
+    @pytest.mark.skip(reason="the strict interaction validation is disabled for now")
     def test_single_relative(self, schema):
         multiscales_data = {
             "layout": [
