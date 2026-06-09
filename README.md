@@ -18,6 +18,7 @@ Examples:
 - [`healpix` on WGS84](examples/healpix-ellipsoid-inverse-flattening.json)
 - [Full domain `healpix` with an implict sphere](examples/healpix-full_domain-implicit-sphere.json)
 - [`h3` with an explicit sphere](examples/h3-explicit-sphere.json)
+- [Composition with `multiscales`](examples/multiscales.json)
 
 ## Inheritance Model
 
