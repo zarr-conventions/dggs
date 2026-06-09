@@ -35,15 +35,12 @@
               "type": "array",
               "items": {
                 "type": "object",
-                "if": {
-                  "properties": { "not": { "required": ["derived_from"] } }
-                },
-                "then": {
-                  "properties": { "dggs": { "$ref": "#/$defs/dggsProperties" } }
-                },
-                "else": {
-                  "properties": {
-                    "dggs": { "$ref": "#/$defs/dggsPartialProperties" }
+                "properties": {
+                  "dggs": {
+                    "anyOf": [
+                      { "$ref": "#/$defs/dggsPartialProperties" },
+                      { "$ref": "#/$defs/dggsProperties" }
+                    ]
                   }
                 }
               }
@@ -147,15 +144,14 @@
           "$ref": "#/$defs/dggsCompression"
         }
       },
-      "required": ["name", "refinement_level", "spatial_dimension"],
-      "additionalProperties": true,
       "allOf": [
         {
           "description": "special cases for the HEALPix DGGS",
           "if": {
             "properties": {
               "name": { "const": "healpix" }
-            }
+            },
+            "required": ["name"]
           },
           "then": {
             "oneOf": [
@@ -184,7 +180,9 @@
             "required": ["indexing_scheme"]
           }
         }
-      ]
+      ],
+      "required": ["name", "refinement_level", "spatial_dimension"],
+      "additionalProperties": true
     },
     "ellipsoidObject": {
       "type": "object",
@@ -265,7 +263,8 @@
         "compression": {
           "$ref": "#/$defs/dggsCompression"
         }
-      }
+      },
+      "required": ["refinement_level"]
     }
   }
 }
