@@ -23,17 +23,17 @@ repos:
     hooks:
       - id: validate-pyproject
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.15
+    rev: v0.15.20
     hooks:
       - id: ruff
         args: ["--fix", "--show-fixes"]
   - repo: https://github.com/rbubley/mirrors-prettier
-    rev: v3.8.3
+    rev: v3.9.4
     hooks:
       - id: prettier
         args: ["--cache", "--cache-location=.prettier_cache/cache"]
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.37.2
+    rev: 0.37.4
     hooks:
       - id: check-metaschema
         files: ^schema.json$
@@ -41,6 +41,6 @@ repos:
         args: ["--schemafile", "schema.json"]
         files: ^examples/.*\.json$
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: v1.25.2
+    rev: v1.26.1
     hooks:
       - id: zizmor
