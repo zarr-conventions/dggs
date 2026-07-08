@@ -27,9 +27,29 @@
         },
         "dggs": {
           "$ref": "#/$defs/dggsProperties"
+        },
+        "multiscales": {
+          "type": "object",
+          "properties": {
+            "layout": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "dggs": {
+                    "anyOf": [
+                      { "$ref": "#/$defs/dggsPartialProperties" },
+                      { "$ref": "#/$defs/dggsProperties" }
+                    ]
+                  }
+                }
+              }
+            }
+          }
         }
       },
-      "required": ["zarr_conventions", "dggs"],
+      "required": ["zarr_conventions"],
+      "anyOf": [{ "required": ["dggs"] }, { "required": ["multiscales"] }],
       "additionalProperties": true
     }
   },
@@ -79,45 +99,59 @@
       ],
       "additionalProperties": false
     },
+    "dggsName": {
+      "type": "string",
+      "description": "The canonical name of the DGGS, normalized to a lower-cased string"
+    },
+    "dggsRefinementLevel": {
+      "type": ["integer", "null"],
+      "description": "The refinement level (depth/order) as an unsigned integer. Can be null if cells are variable-sized.",
+      "minimum": 0
+    },
+    "dggsSpatialDimension": {
+      "type": "string",
+      "description": "Name of the spatial dimension"
+    },
+    "dggsCoordinate": {
+      "type": "string",
+      "description": "Name of the coordinate array containing cell ids"
+    },
+    "dggsCompression": {
+      "type": "string",
+      "description": "Cell id compression method",
+      "enum": ["none", "compacted", "ranges"]
+    },
     "dggsProperties": {
       "type": "object",
       "description": "DGGS convention properties defining the grid system",
       "properties": {
         "name": {
-          "type": "string",
-          "description": "The canonical name of the DGGS, normalized to a lower-cased string"
+          "$ref": "#/$defs/dggsName"
         },
         "refinement_level": {
-          "type": ["integer", "null"],
-          "description": "The refinement level (depth/order) as an unsigned integer. Can be null if cells are variable-sized.",
-          "minimum": 0
+          "$ref": "#/$defs/dggsRefinementLevel"
         },
         "ellipsoid": {
           "$ref": "#/$defs/ellipsoidObject"
         },
         "spatial_dimension": {
-          "type": "string",
-          "description": "Name of the spatial dimension"
+          "$ref": "#/$defs/dggsSpatialDimension"
         },
         "coordinate": {
-          "type": "string",
-          "description": "Name of the coordinate array containing cell ids"
+          "$ref": "#/$defs/dggsCoordinate"
         },
         "compression": {
-          "type": "string",
-          "description": "Cell id compression method",
-          "enum": ["none", "compacted", "ranges"]
+          "$ref": "#/$defs/dggsCompression"
         }
       },
-      "required": ["name", "refinement_level", "spatial_dimension"],
-      "additionalProperties": true,
       "allOf": [
         {
           "description": "special cases for the HEALPix DGGS",
           "if": {
             "properties": {
               "name": { "const": "healpix" }
-            }
+            },
+            "required": ["name"]
           },
           "then": {
             "oneOf": [
@@ -146,7 +180,9 @@
             "required": ["indexing_scheme"]
           }
         }
-      ]
+      ],
+      "required": ["name", "refinement_level", "spatial_dimension"],
+      "additionalProperties": true
     },
     "ellipsoidObject": {
       "type": "object",
@@ -205,6 +241,30 @@
         }
       ],
       "additionalProperties": false
+    },
+    "dggsPartialProperties": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/dggsName"
+        },
+        "refinement_level": {
+          "$ref": "#/$defs/dggsRefinementLevel"
+        },
+        "ellipsoid": {
+          "$ref": "#/$defs/ellipsoidObject"
+        },
+        "spatial_dimension": {
+          "$ref": "#/$defs/dggsSpatialDimension"
+        },
+        "coordinate": {
+          "$ref": "#/$defs/dggsCoordinate"
+        },
+        "compression": {
+          "$ref": "#/$defs/dggsCompression"
+        }
+      },
+      "required": ["refinement_level"]
     }
   }
 }
