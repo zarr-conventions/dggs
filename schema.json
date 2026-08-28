@@ -141,6 +141,19 @@
                   },
                   "refinement_level": { "const": null }
                 }
+              },
+              {
+                "properties": {
+                  "indexing_scheme": {
+                    "type": "string",
+                    "not": {
+                      "anyOf": [
+                        { "enum": ["nested", "ring"] },
+                        { "pattern": "^[a-z_]*uniq$" }
+                      ]
+                    }
+                  }
+                }
               }
             ],
             "required": ["indexing_scheme"]

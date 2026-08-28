@@ -162,17 +162,17 @@ class TestHealpix:
         jsonschema.validate(data, schema)
 
     def test_indexing_scheme_invalid(self, schema):
+        # indexing schemes that don't have a suffix of `uniq` are allowed without restrictions
         dggs = {
             "name": "healpix",
             "refinement_level": 10,
-            "indexing_scheme": "invalid",
+            "indexing_scheme": "unknown_scheme",
             "spatial_dimension": "cells",
             "coordinate": "cell_ids",
             "compression": "none",
         }
         data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
-        with pytest.raises(ValidationError):
-            jsonschema.validate(data, schema)
+        jsonschema.validate(data, schema)
 
     def test_zuniq_concrete_level(self, schema):
         dggs = {
