@@ -166,7 +166,7 @@ class TestHealpix:
         dggs = {
             "name": "healpix",
             "refinement_level": 10,
-            "indexing_scheme": "invalid",
+            "indexing_scheme": "unknown_scheme",
             "spatial_dimension": "cells",
             "coordinate": "cell_ids",
             "compression": "none",
