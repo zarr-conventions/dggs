@@ -144,7 +144,15 @@
               },
               {
                 "properties": {
-                  "indexing_scheme": { "type": "string" }
+                  "indexing_scheme": {
+                    "type": "string",
+                    "not": {
+                      "anyOf": [
+                        { "enum": ["nested", "ring"] },
+                        { "pattern": "^[a-z_]*uniq$" }
+                      ]
+                    }
+                  }
                 }
               }
             ],
