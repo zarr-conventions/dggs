@@ -141,6 +141,11 @@
                   },
                   "refinement_level": { "const": null }
                 }
+              },
+              {
+                "properties": {
+                  "indexing_scheme": { "type": "string" }
+                }
               }
             ],
             "required": ["indexing_scheme"]
