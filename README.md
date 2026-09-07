@@ -166,6 +166,13 @@ Known values are:
 
 Additional indexing schemes are allowed, with no restrictions on the value of `"refinement_level"`.
 
+Until specifying non-default schemes is possible, compressed coordinates must use the following indexing schemes:
+
+| Compression   | Scheme   | Level |
+| ------------- | -------- | ----- |
+| **compacted** | `zuniq`  | null  |
+| **ranges**    | `nested` | 29    |
+
 ## Examples
 
 ### HEALPix
