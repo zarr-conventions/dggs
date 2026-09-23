@@ -72,7 +72,7 @@ Also called the "depth" or "order", this parameter describes the size of the DGG
 - **Type**: `integer | null`
 - **Required**: &#10003; Yes
 
-It MUST only be `null` if the associated coordinate is variable-sized.
+It MUST NOT be `null` unless the associated coordinate describes variable-sized cells.
 
 #### ellipsoid
 
