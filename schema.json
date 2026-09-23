@@ -139,7 +139,12 @@
                     "type": "string",
                     "pattern": "^[a-z_]*uniq$"
                   },
-                  "refinement_level": { "const": null }
+                  "refinement_level": {
+                    "anyOf": [
+                      { "const": null },
+                      { "type": "integer", "minimum": 0, "maximum": 29 }
+                    ]
+                  }
                 }
               },
               {
