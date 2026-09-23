@@ -99,7 +99,7 @@ The name of the spatial dimension.
 
 #### compression
 
-`compression` describes the cell id compression method chosen. It MUST only be provided if the `coordinate` was provided. If `refinement_level` is `null`, `compression` MUST be `"none"`.
+`compression` describes the cell id compression method chosen. It MUST be provided when the `coordinate` was provided, and MUST be missing otherwise. If `refinement_level` is `null`, `compression` MUST be `"none"`.
 
 Uncompressing the cell ids MUST result in an array of the same length as the `spatial_dimension`.
 
