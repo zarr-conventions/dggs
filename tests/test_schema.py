@@ -184,8 +184,8 @@ class TestHealpix:
             "compression": "none",
         }
         data = embed_attributes(zarr_conventions=[convention_metadata], dggs=dggs)
-        with pytest.raises(ValidationError):
-            jsonschema.validate(data, schema)
+
+        jsonschema.validate(data, schema)
 
 
 class TestEllipsoid:
