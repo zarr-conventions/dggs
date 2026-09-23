@@ -161,7 +161,7 @@ The **indexing_scheme** parameter describes the space-filling curve used to inde
 
 Known values are:
 
-- the base indexing schemes: `nested` and `ring` (the base indexing schemes). `"refinement_level"` must be an integer between 0 and 29.
+- `nested` and `ring` (the base indexing schemes). `"refinement_level"` must be an integer between 0 and 29.
 - indexing schemes that encode the refinement level in the cell ids: `zuniq`, `nuniq`, and many others ending with `uniq`). `"refinement_level"` must be null.
 
 Additional indexing schemes are allowed, with no restrictions on the value of `"refinement_level"`.
