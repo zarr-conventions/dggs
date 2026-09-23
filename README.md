@@ -85,7 +85,7 @@ If not given, a sphere with a radius of `6370997 m` MUST be assumed.
 
 #### spatial_dimension
 
-The name of spatial dimension.
+The name of the spatial dimension.
 
 - **Type**: `string`
 - **Required**: &#10003; Yes
