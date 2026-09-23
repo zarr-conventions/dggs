@@ -106,7 +106,7 @@ Uncompressing the cell ids MUST result in an array of the same length as the `sp
 - **Type**: `string`
 - **Required**: Conditional
 
-The following values are possible:
+The following values are supported:
 
 - `"none"`: the array referenced by `coordinate` MUST be 1-dimensional and have the same size as the `spatial_dimension`.
 - `"compacted"`: the array referenced by `coordinate` MUST be 1-dimensional.
