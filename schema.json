@@ -199,13 +199,11 @@
         {
           "description": "sphere",
           "required": ["name", "radius"],
-          "not": {
-            "required": [
-              "semi_major_axis",
-              "semi_minor_axis",
-              "inverse_flattening"
+          "anyOf": [
+              {"required":  ["semi_major_axis"]},
+              {"required":  ["semi_minor_axis"]},
+              {"required":  ["inverse_flattening"]}
             ]
-          }
         },
         {
           "description": "ellipsoid with semi-major and semi-minor axis",
@@ -218,7 +216,7 @@
           "description": "ellipsoid with semi-major axis and inverse flattening",
           "required": ["name", "semi_major_axis", "inverse_flattening"],
           "not": {
-            "required": ["radius", "semiminor_axis"]
+            "required": ["radius", "semi_minor_axis"]
           }
         }
       ],
