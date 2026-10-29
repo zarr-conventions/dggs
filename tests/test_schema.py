@@ -203,7 +203,7 @@ class TestEllipsoid:
         )
         jsonschema.validate(data, schema)
 
-    def test_validate_semiminor_axis(self, schema):
+    def test_validate_semi_minor_axis(self, schema):
         ellipsoid = {
             "name": "WGS84",
             "semi_major_axis": 6378137.0,
@@ -236,28 +236,26 @@ class TestEllipsoid:
         )
         jsonschema.validate(data, schema)
 
-    def test_validate_duplicate_ellipsoid(self, schema):
-        ellipsoid = {
-            "name": "WGS84",
-            "semi_major_axis": 6378137.0,
-            "inverse_flattening": 298.257223563,
+    @pytest.mark.parametrize(
+        "fields",
+        [
+            ["radius", "semi_major_axis"],
+            ["radius", "semi_minor_axis"],
+            ["radius", "inverse_flattening"],
+            ["radius", "semi_major_axis", "semi_minor_axis"],
+            ["radius", "semi_major_axis", "inverse_flattening"],
+            ["semi_major_axis", "semi_minor_axis", "inverse_flattening"],
+            ["radius", "semi_major_axis", "semi_minor_axis", "inverse_flattening"],
+        ],
+    )
+    def test_validate_mixed_fields(self, schema, fields):
+        values = {
             "radius": 6370997.0,
-        }
-        data = embed_attributes(
-            zarr_conventions=[convention_metadata],
-            dggs=self.dggs_metadata | {"ellipsoid": ellipsoid},
-        )
-
-        with pytest.raises(ValidationError):
-            jsonschema.validate(data, schema)
-
-    def test_validate_duplicate_inverse_flattening(self, schema):
-        ellipsoid = {
-            "name": "WGS84",
             "semi_major_axis": 6378137.0,
+            "semi_minor_axis": 6356752.314,
             "inverse_flattening": 298.257223563,
-            "semi_minor_axis": 6356000.0,
         }
+        ellipsoid = {"name": "mixed"} | {field: values[field] for field in fields}
         data = embed_attributes(
             zarr_conventions=[convention_metadata],
             dggs=self.dggs_metadata | {"ellipsoid": ellipsoid},
