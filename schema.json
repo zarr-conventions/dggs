@@ -85,7 +85,8 @@
       "properties": {
         "name": {
           "type": "string",
-          "description": "The canonical name of the DGGS, normalized to a lower-cased string"
+          "description": "The canonical name of the DGGS, normalized to a lower-cased string",
+          "pattern": "^[^A-Z]*$"
         },
         "refinement_level": {
           "type": ["integer", "null"],
@@ -110,6 +111,10 @@
         }
       },
       "required": ["name", "refinement_level", "spatial_dimension"],
+      "dependencies": {
+        "coordinate": ["compression"],
+        "compression": ["coordinate"]
+      },
       "additionalProperties": true,
       "allOf": [
         {
@@ -162,6 +167,57 @@
               }
             ],
             "required": ["indexing_scheme"]
+          }
+        },
+        {
+          "description": "a null refinement_level requires a coordinate with compression 'none', except for HEALPix 'compacted' coordinates",
+          "if": {
+            "properties": { "refinement_level": { "const": null } },
+            "required": ["refinement_level"]
+          },
+          "then": {
+            "required": ["coordinate"],
+            "anyOf": [
+              { "properties": { "compression": { "const": "none" } } },
+              {
+                "properties": {
+                  "name": { "const": "healpix" },
+                  "compression": { "const": "compacted" }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "description": "HEALPix 'compacted' coordinates must use 'zuniq' at a null level",
+          "if": {
+            "properties": {
+              "name": { "const": "healpix" },
+              "compression": { "const": "compacted" }
+            },
+            "required": ["name", "compression"]
+          },
+          "then": {
+            "properties": {
+              "indexing_scheme": { "const": "zuniq" },
+              "refinement_level": { "const": null }
+            }
+          }
+        },
+        {
+          "description": "HEALPix 'ranges' coordinates must use 'nested' at level 29",
+          "if": {
+            "properties": {
+              "name": { "const": "healpix" },
+              "compression": { "const": "ranges" }
+            },
+            "required": ["name", "compression"]
+          },
+          "then": {
+            "properties": {
+              "indexing_scheme": { "const": "nested" },
+              "refinement_level": { "const": 29 }
+            }
           }
         }
       ]
