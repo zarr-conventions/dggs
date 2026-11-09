@@ -21,13 +21,13 @@
     "multiscales": {
       "layout": [
         {
-          "asset": "20",
+          "asset": "20/b02",
           "dggs": {
             "name": "healpix",
             "refinement_level": 20,
             "indexing_scheme": "nested",
             "ellipsoid": {
-              "name": "wgs84",
+              "name": "WGS84",
               "semi_major_axis": 6378137.0,
               "inverse_flattening": 298.257223563
             },
@@ -37,32 +37,29 @@
           }
         },
         {
-          "asset": "19",
+          "asset": "19/b05",
           "dggs": {
             "name": "healpix",
             "refinement_level": 19,
             "indexing_scheme": "nested",
             "ellipsoid": {
-              "name": "wgs84",
+              "name": "WGS84",
               "semi_major_axis": 6378137.0,
               "inverse_flattening": 298.257223563
             },
             "spatial_dimension": "cells",
             "coordinate": "cell_ids",
             "compression": "none"
-          },
-          "derived_from": "20",
-          "transform": { "scale": [2.0] },
-          "resampling_method": "mean"
+          }
         },
         {
-          "asset": "18",
+          "asset": "18/b02",
           "dggs": {
             "name": "healpix",
             "refinement_level": 18,
             "indexing_scheme": "nested",
             "ellipsoid": {
-              "name": "wgs84",
+              "name": "WGS84",
               "semi_major_axis": 6378137.0,
               "inverse_flattening": 298.257223563
             },
@@ -70,7 +67,26 @@
             "coordinate": "cell_ids",
             "compression": "none"
           },
-          "derived_from": "19",
+          "derived_from": "20/b02",
+          "transform": { "scale": [4.0] },
+          "resampling_method": "mean"
+        },
+        {
+          "asset": "18/b05",
+          "dggs": {
+            "name": "healpix",
+            "refinement_level": 18,
+            "indexing_scheme": "nested",
+            "ellipsoid": {
+              "name": "WGS84",
+              "semi_major_axis": 6378137.0,
+              "inverse_flattening": 298.257223563
+            },
+            "spatial_dimension": "cells",
+            "coordinate": "cell_ids",
+            "compression": "none"
+          },
+          "derived_from": "19/b05",
           "transform": { "scale": [2.0] },
           "resampling_method": "mean"
         }

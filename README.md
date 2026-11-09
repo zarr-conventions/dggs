@@ -187,7 +187,7 @@ The `multiscales` convention allows describing the relationships between the sib
 
 To be fully self-contained, it is recommended to specify the full `dggs` object for the original data. Any derived groups (as indicated by the presence of `derived_from`) MAY then contain a reduced `dggs` object that contains only the changed properties.
 
-A real-world example is [`examples/healpix-multiscales-sentinel-2.json`](examples/healpix-multiscales-sentinel-2.json), taken from a Sentinel-2 L2A pyramid on HEALPix (one level 7 cell of an orbit, levels 20 to 12, abbreviated to three levels here): each level is derived from the next finer one, and every `layout` item repeats the full `dggs` object of its level group. The `dggs` object of a `layout` item is optional: a group listing the `dggs` convention may only carry it in the single-scale (level) groups the `layout` points at.
+A real-world example is [`examples/healpix-multiscales-sentinel-2.json`](examples/healpix-multiscales-sentinel-2.json), taken from a Sentinel-2 L1C pyramid on HEALPix (one level 7 cell of an orbit, levels 20 to 12, abbreviated to two arrays and three levels here). The pyramid uses the nested array-asset layout of the `multiscales` convention, one item per array, because the arrays of a derived level are aggregated from different native levels (`20` or `19`); every item of the example repeats the full `dggs` object of its level group. The `dggs` object of a layout item is optional: the store itself carries it only in the single-scale (level) groups the `layout` points at, and both forms are valid.
 
 ## Examples
 
