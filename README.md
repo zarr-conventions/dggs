@@ -15,10 +15,11 @@ It is inspired by the CF conventions' `healpix` grid mapping (first included in 
 
 Examples:
 
-- [`healpix` on WGS84](examples/healpix-ellipsoid-inverse-flattening.json)
+- [`healpix` on WGS84](examples/healpix-ellipsoid-inverse_flattening.json)
 - [Full domain `healpix` with an implict sphere](examples/healpix-full_domain-implicit-sphere.json)
 - [`h3` with an explicit sphere](examples/h3-explicit-sphere.json)
 - [Composition with `multiscales`](examples/multiscales.json)
+- [Composition with `multiscales`, Sentinel-2 on HEALPix](examples/healpix-multiscales-sentinel-2.json)
 
 ## Inheritance Model
 
@@ -185,6 +186,8 @@ Until specifying non-default schemes is possible, compressed coordinates must us
 The `multiscales` convention allows describing the relationships between the sibling groups in an image pyramid. Since rotations (translations on a sphere or ellipsoid) are not supported, any `transform` objects (as required by the presence of the `derived_from` attribute) MUST contain only a single element `scale` array, and MUST NOT contain a `translation` attribute.
 
 To be fully self-contained, it is recommended to specify the full `dggs` object for the original data. Any derived groups (as indicated by the presence of `derived_from`) MAY then contain a reduced `dggs` object that contains only the changed properties.
+
+A real-world example is [`examples/healpix-multiscales-sentinel-2.json`](examples/healpix-multiscales-sentinel-2.json), taken from a Sentinel-2 pyramid on HEALPix (levels 20 to 12, abbreviated to three levels here): each level is derived from the next finer one, and every `layout` item repeats the full `dggs` object of its level group. The `dggs` object of a `layout` item is optional: a group listing the `dggs` convention may only carry it in the single-scale (level) groups the `layout` points at.
 
 ## Examples
 
