@@ -13,6 +13,14 @@ This convention describes a JSON object that encodes the coordinate and grid par
 
 It is inspired by the CF conventions' `healpix` grid mapping (first included in version 1.13), but deliberately makes different choices in some cases to be more broadly useful in the zarr ecosystem.
 
+Examples:
+
+- [`healpix` on WGS84](examples/healpix-ellipsoid-inverse_flattening.json)
+- [Full domain `healpix` with an implict sphere](examples/healpix-full_domain-implicit-sphere.json)
+- [`h3` with an explicit sphere](examples/h3-explicit-sphere.json)
+- [Composition with `multiscales`](examples/multiscales.json)
+- [Composition with `multiscales`, Sentinel-2 on HEALPix](examples/healpix-multiscales-sentinel-2.json)
+
 ## Inheritance Model
 
 The `dggs` convention object follows a simple group-to-array inheritance model that should be understood first:
@@ -173,6 +181,14 @@ Until specifying non-default schemes is possible, compressed coordinates must us
 | **compacted** | `zuniq`  | null  |
 | **ranges**    | `nested` | 29    |
 
+## Usage with the [`multiscales`](https://github.com/zarr-conventions/multiscales) convention
+
+The `multiscales` convention allows describing the relationships between the sibling groups in an image pyramid. Since rotations (translations on a sphere or ellipsoid) are not supported, any `transform` objects (as required by the presence of the `derived_from` attribute) MUST contain only a single element `scale` array, and MUST NOT contain a `translation` attribute.
+
+To be fully self-contained, it is recommended to specify the full `dggs` object for the original data. Any derived groups (as indicated by the presence of `derived_from`) MAY then contain a reduced `dggs` object that contains only the changed properties.
+
+A real-world example is [`examples/healpix-multiscales-sentinel-2.json`](examples/healpix-multiscales-sentinel-2.json), taken from a Sentinel-2 L1C pyramid on HEALPix (one level 7 cell of an orbit, levels 20 to 12, abbreviated to two arrays and three levels here). The pyramid uses the nested array-asset layout of the `multiscales` convention, one item per array, because the arrays of a derived level are aggregated from different native levels (`20` or `19`); every item of the example repeats the full `dggs` object of its level group. The `dggs` object of a layout item is optional: the store itself carries it only in the single-scale (level) groups the `layout` points at, and both forms are valid.
+
 ## Examples
 
 ### HEALPix
@@ -227,6 +243,64 @@ Full domain, spherical, missing coordinate:
       "refinement_level": 16,
       "indexing_scheme": "nested",
       "spatial_dimension": "cells"
+    }
+  }
+}
+```
+
+Composition with the `multiscales` convention:
+
+```json
+{
+  "attributes": {
+    "zarr_conventions": [
+      {
+        "schema_url": "https://raw.githubusercontent.com/zarr-conventions/multiscales/refs/tags/v1/schema.json",
+        "spec_url": "https://github.com/zarr-conventions/multiscales/blob/v1/README.md",
+        "uuid": "d35379db-88df-4056-af3a-620245f8e347",
+        "name": "multiscales",
+        "description": "Multiscale layout of zarr datasets"
+      },
+      {
+        "schema_url": "https://raw.githubusercontent.com/zarr-conventions/dggs/refs/tags/v1/schema.json",
+        "spec_url": "https://github.com/zarr-conventions/dggs/blob/v1/README.md",
+        "uuid": "7b255807-140c-42ca-97f6-7a1cfecdbc38",
+        "name": "dggs",
+        "description": "Discrete Global Grid Systems convention for zarr"
+      }
+    ],
+    "multiscales": {
+      "layout": [
+        {
+          "asset": "10",
+          "dggs": {
+            "name": "healpix",
+            "refinement_level": 10,
+            "indexing_scheme": "nested",
+            "spatial_dimension": "cells",
+            "ellipsoid": {
+              "name": "WGS84",
+              "semi_major_axis": 6378137.0,
+              "inverse_flattening": 298.257223563
+            },
+            "coordinate": "cell_ids",
+            "compression": "none"
+          }
+        },
+        {
+          "asset": "8",
+          "derived_from": "10",
+          "transform": { "scale": [4.0] },
+          "dggs": { "refinement_level": 8 }
+        },
+        {
+          "asset": "4",
+          "derived_from": "10",
+          "transform": { "scale": [64.0] },
+          "dggs": { "refinement_level": 4 }
+        }
+      ],
+      "resampling_method": "average"
     }
   }
 }
